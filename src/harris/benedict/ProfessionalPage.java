@@ -29,9 +29,9 @@ public class ProfessionalPage extends JFrame {
      * Arrays containing choices
      */
     private static final String[] genders = {"Male", "Female"};
-    private static final String[] activitiesPRO = {"Resting", "Asleep/Sedated", "Lying Still", "Spinal cord injury", "Bedrest", "Mobilizing Occasionally", "Sedentary/Light Activity", "Mobilizing Frequently", "Regular Physiotherapy", "Moderate Activity"};
+    private static final String[] activitiesPRO = {"Resting (1.0-1.4)", "Asleep/Sedated (0.9-1.1)", "Lying Still (1.0-1.1)", "Spinal cord injury (1.1)", "Bedrest (1.15-1.2)", "Mobilizing Occasionally (1.15-1.4)", "Sedentary/Light Activity (1.5-1.6)", "Mobilizing Frequently (1.4-1.5)", "Regular Physiotherapy (1.5-1.6)", "Moderate Activity (1.6-1.8)"};
     private static final String[] weightGoals = {"Lose Weight (0.5 lbs)","Lose Weight (1.0 lbs)","Lose Weight (1.5 lbs)","Lose Weight (2.0 lbs)", "Maintain Weight", "Gain Weight (0.5 lbs)","Gain Weight (1.0 lbs)","Gain Weight (1.5 lbs)","Gain Weight (2.0 lbs)"};
-    private static final String[] stressLevel = {"No Stress", "Cancer", "Elective Surgery", "Peritonitis", "Multiple bone Fractures", "Fever", "Spinal Cord Injury", "Sepsis", "Severe Infection", "Burns", "Infection with trauma", "Multiple Trauma/Traumatic Brain Injury"};
+    private static final String[] stressLevel = {"No Stress (1.0)", "Cancer (0.8-1.5)", "Elective Surgery (1.0-1.1)", "Peritonitis (1.05-1.25)", "Multiple Bone Fractures (1.1-1.3)", "Fever (1.2 per 1\u00B0C > 37\u00B0C)", "Spinal Cord Injury (1.2)", "Sepsis (1.2-1.4)", "Severe Infection (1.2-1.6)", "Burns (1.2-2.0)", "Infection with trauma (1.3-1.55)", "Multiple Trauma/Traumatic Brain Injury (1.4))"};
 
     /**
      * Boxes visualising those choices
@@ -437,8 +437,8 @@ public class ProfessionalPage extends JFrame {
                 JOptionPane.showMessageDialog(null, "Please enter the numeric values only for height, weight and age.");
             } else if (e.getSource() == submit) {
                 user = new Person(name, (Double.parseDouble(weightTxt.getText()) / 2.2), Double.parseDouble(heightTxt.getText()), Objects.requireNonNull(activityBoxPro.getSelectedItem()).toString(), Objects.requireNonNull(genderBox.getSelectedItem()).toString(), Integer.parseInt(ageBox.getText()), Objects.requireNonNull(goalsBox.getSelectedItem()).toString(), Objects.requireNonNull(stressBox.getSelectedItem()).toString());
-                DataCalculations.setPALPro();
-                DataCalculations.setSF(true);
+                DataCalculations.setPALPro(activityBoxPro.getSelectedItem().toString());
+                DataCalculations.setSF(true, stressBox.getSelectedItem().toString());
                 DataCalculations.setVals(user);
                 DataCalculations.setGoal(user);
                 BMI = DataCalculations.getBMI();

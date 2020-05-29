@@ -55,15 +55,17 @@ public class DataCalculations {
     /**
      * Setting the factor of activity for the user (PRO)
      */
-    protected static void setPALPro() {
+    protected static void setPALPro(String activity) {
         boolean correct = false;
 
         while (!correct) {
             try {
-                PAL = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter a value for patient's activity factor", "1.0"));
+                PAL = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter a value for patient's activity factor: " + activity, "1.0"));
                 correct = true;
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Please enter numeric values only", "Warning", JOptionPane.WARNING_MESSAGE);
+            } catch (NullPointerException ex) {
+                System.out.println("Closed Dialog");
             }
         }
     }
@@ -73,7 +75,7 @@ public class DataCalculations {
      * Setting the stress factor for the user (PRO)
      *
      */
-    protected static void setSF(Boolean bool) {
+    protected static void setSF(Boolean bool, String stress) {
 
         //For basic users
         if (bool == false) {
@@ -85,10 +87,13 @@ public class DataCalculations {
 
         while (!correct) {
             try {
-                SF = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter a value for patient's stress factor", "1.0"));
+
+                SF = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter a value for patient's stress factor: " + stress, "1.0"));
                 correct = true;
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Please enter numeric values only", "Warning", JOptionPane.WARNING_MESSAGE);
+            } catch (NullPointerException ex) {
+                System.out.println("Closed Dialog");
             }
         }
     }

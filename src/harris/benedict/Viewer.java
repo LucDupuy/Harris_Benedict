@@ -28,6 +28,7 @@ public class Viewer {
 //work on restarting
 //condense code
 //creation of object is cancer to look at
-//make interface different based on who is using it (general user or RD)
 //home button doesnt work
 //change name from HB
+//cite OG Harris Benedict for values
+//cancelling boxes error(no close allowed?)

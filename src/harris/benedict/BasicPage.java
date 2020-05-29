@@ -430,7 +430,7 @@ public class BasicPage extends JFrame {
             } else if (e.getSource() == submit) {
                 user = new Person(name, (Double.parseDouble(weightTxt.getText()) / 2.2), Double.parseDouble(heightTxt.getText()), Objects.requireNonNull(activityBoxBasic.getSelectedItem()).toString(), Objects.requireNonNull(genderBox.getSelectedItem()).toString(), Integer.parseInt(ageBox.getText()), Objects.requireNonNull(goalsBox.getSelectedItem()).toString());
                 DataCalculations.setPALBasic(user);
-                DataCalculations.setSF(false);
+                DataCalculations.setSF(false, "");
                 DataCalculations.setVals(user);
                 DataCalculations.setGoal(user);
                 BMI = DataCalculations.getBMI();
