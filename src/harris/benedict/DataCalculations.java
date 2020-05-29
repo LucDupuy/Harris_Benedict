@@ -36,17 +36,30 @@ public class DataCalculations {
      * @param person the current user
      */
     public static void setPAL(Person person) {
-        if (person.activity == "Light") {
+        String val = person.activity;
+
+        if (val == "Light") {
             PAL = 1.53;
-        } else if (person.activity == "Moderate") {
+        } else if (val == "Moderate") {
             PAL = 1.76;
-        } else if (person.activity == "Vigorous") {
+        } else if (val == "Vigorous") {
             PAL = 2.25;
         }
     }
 
+    /**
+     * Setting the factor of activity for the user
+     *
+     * @param person the current user
+     */
+    public static void setPALPro(Person person) {
+        String val = person.activity;
+            PAL = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter a value for patient's activity factor", "1.0"));
+    }
+
+
     protected static void setSF(Person person) {
-        //IF THIS STRING ITS THIS NUMBER
+        SF = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter a value for patient's stress factor", "1.0"));
 
     }
 

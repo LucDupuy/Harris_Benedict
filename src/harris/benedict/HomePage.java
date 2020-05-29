@@ -25,6 +25,7 @@ public class HomePage extends JFrame {
     private BufferedImage image;
 
 
+
     /**
      * The constructor for the main page object
      */

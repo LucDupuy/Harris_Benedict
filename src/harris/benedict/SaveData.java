@@ -43,9 +43,9 @@ public class SaveData {
         jcf.setFileFilter(new FileNameExtensionFilter("Text File", "txt"));
 
         if (name.equals("")) {
-            jcf.setSelectedFile(new File ("Macros.txt"));
+            jcf.setSelectedFile(new File ("TEE.txt"));
         } else {
-            jcf.setSelectedFile(new File(name + " - Macros.txt"));
+            jcf.setSelectedFile(new File(name + " - TEE.txt"));
         }
 //        jcf.showSaveDialog(jcf);
 

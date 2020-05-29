@@ -41,3 +41,8 @@ public class Viewer {
 
 
 //fix activities basic
+
+
+//error catching for wrong activity / stree input
+
+//home button doesnt work

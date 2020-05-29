@@ -35,7 +35,8 @@ public class HarrisFrame extends JFrame {
      * Boxes visualising those choices
      */
     private static final JComboBox genderBox   = new JComboBox(genders);
-    private static final JComboBox activityBox = new JComboBox(activitiesPRO);
+    private static final JComboBox activityBoxPro = new JComboBox(activitiesPRO);
+    private static final JComboBox activityBox = new JComboBox(activitiesBasic);
     private static final JComboBox stressBox   = new JComboBox(stressLevel);
     private static final JComboBox goalsBox    = new JComboBox(weightGoals);
 
@@ -50,14 +51,14 @@ public class HarrisFrame extends JFrame {
     /**
      * Labels to explain each part of the page
      */
-    private static JLabel nameLbl     = new JLabel("Please enter your name: ");
-    private static JLabel genderLbl   = new JLabel("       Please select your sex             ");
+    private static JLabel nameLbl     = new JLabel("Please enter patient's name: ");
+    private static JLabel genderLbl   = new JLabel("       Please select patient's sex             ");
     private static JLabel weightLbl   = new JLabel("\n     Please enter weight in pounds        ");
     private static JLabel heightLbl   = new JLabel("\n     Please enter height in centimetres ");
-    private static JLabel activityLbl = new JLabel("\n     Please select your level of typical daily activity");
-    private static JLabel ageLbl      = new JLabel("\n     Please enter your age                        ");
-    private static JLabel goalsLbl    = new JLabel("\n     Please select your goal (in a week)");
-    private static JLabel stressLbl   = new JLabel("\n     Please select your stress level");
+    private static JLabel activityLbl = new JLabel("\n     Please select patient's level of typical daily activity");
+    private static JLabel ageLbl      = new JLabel("\n     Please enter patient's age                        ");
+    private static JLabel goalsLbl    = new JLabel("\n     Please select patient's goal (in a week)");
+    private static JLabel stressLbl   = new JLabel("\n     Please select patient's stress level");
     JLabel personalInfo = new JLabel("<HTML><U>PERSONAL INFORMATION</U></HTML>", SwingConstants.CENTER);
     JLabel resultsLbl = new JLabel("<HTML><U>RESULTS</U></HTML>", SwingConstants.CENTER);
   // JLabel resultsLbl = new JLabel("<HTML><U>RESULTS</U></HTML>");
@@ -106,9 +107,9 @@ public class HarrisFrame extends JFrame {
     /**
      * Definitions
      */
-    private static String strREE = "REE (or Basal Metabolic Rate), is the amount of calories one expends while at rest.";
+    private static String strREE = "REE (or Resting Energy Expenditure), is the amount of calories one expends while at rest.";
     private static String strBMI = "BMI (or Body Mass Index), is a rule of thumb used to categorize one's weight as healthy or not.\nPlease note, that BMI is not one hundred percent accurate, as it is based on factors such as body weight percentage.";
-    private static String strTEE = "PENIS";
+    private static String strTEE = "Total Energy Expenditure";
 
     /**
      * Constructor method for the frame
@@ -173,7 +174,7 @@ public class HarrisFrame extends JFrame {
 
         genderBox.setRenderer(new ComboBoxFontSize());
         goalsBox.setRenderer(new ComboBoxFontSize());
-        activityBox.setRenderer(new ComboBoxFontSize());
+        activityBoxPro.setRenderer(new ComboBoxFontSize());
         stressBox.setRenderer(new ComboBoxFontSize());
 
 
@@ -238,7 +239,7 @@ public class HarrisFrame extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 12;
-        mainPanel.add(activityBox, gbc);
+        mainPanel.add(activityBoxPro, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 13;
@@ -280,7 +281,7 @@ public class HarrisFrame extends JFrame {
     private JPanel createSidePanel() {
 
         sidePanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(4.0f)));
-        sidePanel.setPreferredSize(new Dimension(380, 5));
+        sidePanel.setPreferredSize(new Dimension(450, 5));
         sidePanel.setVisible(false);
         sidePanel.setBackground( Color.decode("#d7d5d5"));
         addSaveListener();
@@ -323,56 +324,56 @@ public class HarrisFrame extends JFrame {
         gbc.anchor = GridBagConstraints.PAGE_START;
         sidePanel.add(resultsLbl, gbc);
 
-        goalTypeLbl = new JLabel("     Your goal is to: " + goalType);
+        goalTypeLbl = new JLabel("    Patient's goal is to: " + goalType);
         customFontSize(goalTypeLbl);
        // gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 1;
         sidePanel.add(goalTypeLbl, gbc);
 
-        REELbl = new JLabel("     Your *REE is: " + String.format("%.1f", REE) + " calories\n");
+        REELbl = new JLabel("     Patient's *REE is: " + String.format("%.1f", REE) + " calories\n");
         customFontSize(REELbl);
       //  gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 2;
         sidePanel.add(REELbl, gbc);
 
-        REELbl = new JLabel("     Your *TEE is: " + String.format("%.1f", TEE) + " calories\n");
+        TEELbl = new JLabel("     Patient's *TEE is: " + String.format("%.1f", TEE) + " calories\n");
         customFontSize(TEELbl);
         //  gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 3;
         sidePanel.add(TEELbl, gbc);
 
-        BMILbl = new JLabel("\n     Your *BMI is: " + String.format("%.1f", BMI));
+        BMILbl = new JLabel("\n     Patient's *BMI is: " + String.format("%.1f", BMI));
         customFontSize(BMILbl);
     //    gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 4;
         sidePanel.add(BMILbl, gbc);
 
-        caloriesNeeded = new JLabel("     You need to consume " + String.format("%.1f", goal) + " calories a day.");
+        caloriesNeeded = new JLabel("     Patient needs to consume " + String.format("%.1f", goal) + " calories a day.");
         customFontSize(caloriesNeeded);
      //   gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 5;
         sidePanel.add(caloriesNeeded, gbc);
 
-        JLabel proteinLbl = new JLabel(protein);
+        JLabel proteinLbl = new JLabel("     " + protein);
         customFontSize(proteinLbl);
      //   gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 6;
         sidePanel.add(proteinLbl, gbc);
 
-        JLabel fatsLbl = new JLabel(fats);
+        JLabel fatsLbl = new JLabel("     " + fats);
         customFontSize(fatsLbl);
        // gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 7;
         sidePanel.add(fatsLbl, gbc);
 
-        JLabel carbsLbl = new JLabel(carbs);
+        JLabel carbsLbl = new JLabel("     " + carbs);
         customFontSize(carbsLbl);
        // gbc.weightx = 0.5;
         gbc.gridx = 0;
@@ -393,7 +394,7 @@ public class HarrisFrame extends JFrame {
 
 
 
-        JLabel definitionLbl = new JLabel("*Please click REE or BMI for a definition");
+        JLabel definitionLbl = new JLabel("*Please click REE, TEE, or BMI for a definition");
         customFontSize(definitionLbl);
      //   gbc.weightx = 0.5;
         gbc.gridx = 0;
@@ -402,6 +403,7 @@ public class HarrisFrame extends JFrame {
         sidePanel.add(definitionLbl, gbc);
 
         LblListen(strREE, REELbl);
+        LblListen(strTEE, TEELbl);
         LblListen(strBMI, BMILbl);
     }
 
@@ -415,15 +417,16 @@ public class HarrisFrame extends JFrame {
         ArrayList<String> list = new ArrayList<>();
 
 
-       list.add(new String ("Your REE is:         " + String.format("%.1f", REE) + "\n"));
-       list.add(new String( "Your BMI is:         " + String.format("%.1f", BMI) + "\n"));
-       list.add(new String( "Your TEE is:         " + String.format("%.1f", TEE) + "\n"));
-       list.add(new String("Protein Needed: " + protein + "\n"));
-       list.add(new String(  "Fats Needed:    " + fats + "\n"));
-       list.add(new String(  "Carbs needed:   " + carbs + "\n" + "\n" + "\n"));
+       list.add(new String ("Patient's REE is:         " + String.format("%.1f", REE) + "\n"));
+       list.add(new String( "Patient's BMI is:         " + String.format("%.1f", BMI) + "\n"));
+       list.add(new String( "Patient's TEE is:         " + String.format("%.1f", TEE) + "\n"));
+       list.add(new String( "Calories needed :         " + String.format("%.1f", goal)+ "\n\n"));
+       list.add(new String( protein + "\n"));
+       list.add(new String( fats + "\n"));
+       list.add(new String( carbs + "\n" + "\n" + "\n"));
        list.add(new String( "*Please remember that these figures are not set in stone, and before making any\n"));
-       list.add(new String(  "major changes to your diet, you should consult a physician first"));
-       list.add(new String(   "\n\n------------------------------------------\n"));
+       list.add(new String( "major changes to patient's diet, you should consult a dietitian or physician first"));
+       list.add(new String( "\n\n------------------------------------------\n"));
        list.add(new String(java.time.LocalDate.now() + ""));
 
 
@@ -467,8 +470,8 @@ public class HarrisFrame extends JFrame {
             } else if (!weightTxt.getText().matches("^[0-9]+$") ||  !heightTxt.getText().matches("^[0-9]+$") ||  !ageBox.getText().matches("^[0-9]+$")) {
                 JOptionPane.showMessageDialog(null, "Please enter the numeric values only for height, weight and age.");
             } else if (e.getSource() == submit) {
-                user = new Person(name, (Double.parseDouble(weightTxt.getText()) / 2.2), Double.parseDouble(heightTxt.getText()), activityBox.getSelectedItem().toString(), genderBox.getSelectedItem().toString(), Integer.parseInt(ageBox.getText()), goalsBox.getSelectedItem().toString(), stressBox.getSelectedItem().toString());
-                DataCalculations.setPAL(user);
+                user = new Person(name, (Double.parseDouble(weightTxt.getText()) / 2.2), Double.parseDouble(heightTxt.getText()), activityBoxPro.getSelectedItem().toString(), genderBox.getSelectedItem().toString(), Integer.parseInt(ageBox.getText()), goalsBox.getSelectedItem().toString(), stressBox.getSelectedItem().toString());
+                DataCalculations.setPALPro(user);
                 DataCalculations.setSF(user);
                 DataCalculations.setBMI(user);
                 DataCalculations.setREE(user);
@@ -480,9 +483,9 @@ public class HarrisFrame extends JFrame {
                 PAL = DataCalculations.getPAL();
                 goal = DataCalculations.getGoal();
                 DataCalculations.settingMacros(REE, user);
-                protein = "     " + DataCalculations.proteinToString();
-                fats    = "     " +DataCalculations.fatsToString();
-                carbs   = "     " + DataCalculations.carbsToString() ;
+                protein = DataCalculations.proteinToString();
+                fats    = DataCalculations.fatsToString();
+                carbs   = DataCalculations.carbsToString() ;
 
 
                 sidePanel.removeAll();
