@@ -1,0 +1,4 @@
+SD01 -> Save Data Directory not able to be created
+WD01 -> Write Data caught an exception where the file to save to could not be found
+IL01 -> Home page image was not loaded into the program
+RE01 -> restartApp() at the bottom of HarrisFrame for the Home button threw an error
