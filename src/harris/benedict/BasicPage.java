@@ -3,13 +3,16 @@ package harris.benedict;
 
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class HarrisFrame extends JFrame {
+/**
+ * Class creating the main page of the program and bringing everything together
+ */
+public class BasicPage extends JFrame {
 
 
     /**
@@ -27,49 +30,44 @@ public class HarrisFrame extends JFrame {
      */
     private static final String[] genders = {"Male", "Female"};
     private static final String[] activitiesBasic = {"Light", "Moderate", "Vigorous"};
-    private static final String[] activitiesPRO = {"Resting", "Asleep/Sedated", "Lying Still", "Spinal cord injury", "Bedrest", "Mobilizing Occasionally", "Sedentary/Light Activity", "Mobilizing Frequently", "Regular Physiotherapy", "Moderate Activity"};
     private static final String[] weightGoals = {"Lose Weight (0.5 lbs)","Lose Weight (1.0 lbs)","Lose Weight (1.5 lbs)","Lose Weight (2.0 lbs)", "Maintain Weight", "Gain Weight (0.5 lbs)","Gain Weight (1.0 lbs)","Gain Weight (1.5 lbs)","Gain Weight (2.0 lbs)"};
-    private static final String[] stressLevel = {"No Stress", "Cancer", "Elective Surgery", "Peritonitis", "Multiple bone Fractures", "Fever", "Spinal Cord Injury", "Sepsis", "Severe Infection", "Burns", "Infection with trauma", "Multiple Trauma/Traumatic Brain Injury"};
 
     /**
      * Boxes visualising those choices
      */
-    private static final JComboBox genderBox   = new JComboBox(genders);
-    private static final JComboBox activityBoxPro = new JComboBox(activitiesPRO);
-    private static final JComboBox activityBox = new JComboBox(activitiesBasic);
-    private static final JComboBox stressBox   = new JComboBox(stressLevel);
-    private static final JComboBox goalsBox    = new JComboBox(weightGoals);
+    private static final JComboBox<String> genderBox   = new JComboBox<>(genders);
+    private static final JComboBox<String> activityBoxBasic = new JComboBox<>(activitiesBasic);
+    private static final JComboBox<String> goalsBox    = new JComboBox<>(weightGoals);
 
 
     /**
      * Button used to submit the information
      */
-    private static JButton submit = new JButton("SUBMIT");
-    private static JButton save = new JButton("SAVE");
-    private static JButton home = new JButton("  HOME ");
+    private static final JButton submit = new JButton("SUBMIT");
+    private static final JButton save = new JButton("SAVE");
+    private static final JButton home = new JButton("  HOME ");
 
     /**
      * Labels to explain each part of the page
      */
-    private static JLabel nameLbl     = new JLabel("Please enter patient's name: ");
-    private static JLabel genderLbl   = new JLabel("       Please select patient's sex             ");
-    private static JLabel weightLbl   = new JLabel("\n     Please enter weight in pounds        ");
-    private static JLabel heightLbl   = new JLabel("\n     Please enter height in centimetres ");
-    private static JLabel activityLbl = new JLabel("\n     Please select patient's level of typical daily activity");
-    private static JLabel ageLbl      = new JLabel("\n     Please enter patient's age                        ");
-    private static JLabel goalsLbl    = new JLabel("\n     Please select patient's goal (in a week)");
-    private static JLabel stressLbl   = new JLabel("\n     Please select patient's stress level");
+    private static final JLabel nameLbl     = new JLabel("Please enter Your name: ");
+    private static final JLabel genderLbl   = new JLabel("       Please select Your sex             ");
+    private static final JLabel weightLbl   = new JLabel("\n     Please enter weight in pounds        ");
+    private static final JLabel heightLbl   = new JLabel("\n     Please enter height in centimetres ");
+    private static final JLabel activityLbl = new JLabel("\n     Please select Your level of typical daily activity");
+    private static final JLabel ageLbl      = new JLabel("\n     Please enter Your age                        ");
+    private static final JLabel goalsLbl    = new JLabel("\n     Please select Your goal (in a week)");
+
     JLabel personalInfo = new JLabel("<HTML><U>PERSONAL INFORMATION</U></HTML>", SwingConstants.CENTER);
     JLabel resultsLbl = new JLabel("<HTML><U>RESULTS</U></HTML>", SwingConstants.CENTER);
-  // JLabel resultsLbl = new JLabel("<HTML><U>RESULTS</U></HTML>");
 
     /**
      * Text fields to input info
      */
-    private static JTextField weightTxt = new JTextField("0");
-    private static JTextField heightTxt = new JTextField("0");
-    private static JTextField nameTxt   = new JTextField(10);
-    private static JTextField ageBox    = new JTextField("0");
+    private static final JTextField weightTxt = new JTextField("0");
+    private static final JTextField heightTxt = new JTextField("0");
+    private static final JTextField nameTxt   = new JTextField(10);
+    private static final JTextField ageBox    = new JTextField("0");
 
     /**
      * Variables to hold the values of the user's PAL, BMI and REE
@@ -77,17 +75,7 @@ public class HarrisFrame extends JFrame {
     private static double REE;
     private static double TEE;
     private static double BMI;
-    private static double PAL;
     private static double goal;
-
-    /**
-     * Variables to hold the user's BMI and REE values and other values
-     */
-    private static JLabel REELbl;
-    private static JLabel TEELbl;
-    private static JLabel BMILbl;
-    private static JLabel goalTypeLbl;
-    private static JLabel caloriesNeeded;
 
     /**
      * String representation of the macros needed
@@ -100,21 +88,13 @@ public class HarrisFrame extends JFrame {
      * Creating the two panels of the main screen
      */
     JPanel mainPanel = new JPanel();
-//   JPanel mainPanel = new JPanel(new GridLayout(15  , 1, 0, 1));
-  // JPanel sidePanel = new JPanel(new GridLayout(12  , 1, 0, 1));
     JPanel sidePanel = new JPanel();
     JPanel centerPanel = new JPanel();
-    /**
-     * Definitions
-     */
-    private static String strREE = "REE (or Resting Energy Expenditure), is the amount of calories one expends while at rest.";
-    private static String strBMI = "BMI (or Body Mass Index), is a rule of thumb used to categorize one's weight as healthy or not.\nPlease note, that BMI is not one hundred percent accurate, as it is based on factors such as body weight percentage.";
-    private static String strTEE = "Total Energy Expenditure";
 
     /**
      * Constructor method for the frame
      */
-    HarrisFrame() {
+    BasicPage() {
         setSize(900, 600);
         add(createMainPanel(), BorderLayout.LINE_START);
         add(createSidePanel(), BorderLayout.EAST);
@@ -140,8 +120,8 @@ public class HarrisFrame extends JFrame {
             name = nameTxt.getText();
             openMain();
         } if (result == JOptionPane.NO_OPTION) {
-        name = "";
-        openMain();
+            name = "";
+            openMain();
         } else if (result == JOptionPane.CLOSED_OPTION) {
             openHome();
         }
@@ -169,14 +149,11 @@ public class HarrisFrame extends JFrame {
         customFontSize(heightLbl);
         customFontSize(goalsLbl);
         customFontSize(activityLbl);
-        customFontSize(stressLbl);
 
 
         genderBox.setRenderer(new ComboBoxFontSize());
         goalsBox.setRenderer(new ComboBoxFontSize());
-        activityBoxPro.setRenderer(new ComboBoxFontSize());
-        stressBox.setRenderer(new ComboBoxFontSize());
-
+        activityBoxBasic.setRenderer(new ComboBoxFontSize());
 
 
         gbc.weightx = 1;
@@ -192,7 +169,7 @@ public class HarrisFrame extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-       // gbc.fill = GridBagConstraints.CENTER;
+
         mainPanel.add(genderBox, gbc);
 
         gbc.gridx = 0;
@@ -239,29 +216,24 @@ public class HarrisFrame extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 12;
-        mainPanel.add(activityBoxPro, gbc);
+        mainPanel.add(activityBoxBasic, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 13;
-        mainPanel.add(stressLbl, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 14;
-        mainPanel.add(stressBox, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 15;
         mainPanel.add(new JLabel(""), gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 16;
+        gbc.gridy = 15;
         gbc.fill = GridBagConstraints.LAST_LINE_START;
         mainPanel.add(submit, gbc);
         submit.addActionListener(new Listen());
 
         gbc.gridx = 0;
-        gbc.gridy = 17;
-    //    gbc.fill = GridBagConstraints.CENTER;
+        gbc.gridy = 16;
+
         mainPanel.add(home, gbc);
         home.addActionListener(new Listen());
 
@@ -307,11 +279,11 @@ public class HarrisFrame extends JFrame {
 
     private void fillSidePanel(String goalType) {
 
-    GridBagConstraints gbc = new GridBagConstraints();
-    sidePanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        sidePanel.setLayout(new GridBagLayout());
 
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
 
         sidePanel.setVisible(true);
         centerPanel.setVisible(true);
@@ -324,68 +296,58 @@ public class HarrisFrame extends JFrame {
         gbc.anchor = GridBagConstraints.PAGE_START;
         sidePanel.add(resultsLbl, gbc);
 
-        goalTypeLbl = new JLabel("    Patient's goal is to: " + goalType);
+        JLabel goalTypeLbl = new JLabel("    Your goal is to: " + goalType);
         customFontSize(goalTypeLbl);
-       // gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 1;
         sidePanel.add(goalTypeLbl, gbc);
 
-        REELbl = new JLabel("     Patient's *REE is: " + String.format("%.1f", REE) + " calories\n");
+        JLabel REELbl = new JLabel("     Your *REE is: " + String.format("%.1f", REE) + " calories\n");
         customFontSize(REELbl);
-      //  gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 2;
         sidePanel.add(REELbl, gbc);
 
-        TEELbl = new JLabel("     Patient's *TEE is: " + String.format("%.1f", TEE) + " calories\n");
+        JLabel TEELbl = new JLabel("     Your *TEE is: " + String.format("%.1f", TEE) + " calories\n");
         customFontSize(TEELbl);
-        //  gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 3;
         sidePanel.add(TEELbl, gbc);
 
-        BMILbl = new JLabel("\n     Patient's *BMI is: " + String.format("%.1f", BMI));
+        JLabel BMILbl = new JLabel("\n     Your *BMI is: " + String.format("%.1f", BMI));
         customFontSize(BMILbl);
-    //    gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 4;
         sidePanel.add(BMILbl, gbc);
 
-        caloriesNeeded = new JLabel("     Patient needs to consume " + String.format("%.1f", goal) + " calories a day.");
+        JLabel caloriesNeeded = new JLabel("     You need to consume " + String.format("%.1f", goal) + " calories a day.");
         customFontSize(caloriesNeeded);
-     //   gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 5;
         sidePanel.add(caloriesNeeded, gbc);
 
         JLabel proteinLbl = new JLabel("     " + protein);
         customFontSize(proteinLbl);
-     //   gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 6;
         sidePanel.add(proteinLbl, gbc);
 
         JLabel fatsLbl = new JLabel("     " + fats);
         customFontSize(fatsLbl);
-       // gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 7;
         sidePanel.add(fatsLbl, gbc);
 
         JLabel carbsLbl = new JLabel("     " + carbs);
         customFontSize(carbsLbl);
-       // gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 8;
         sidePanel.add(carbsLbl, gbc);
 
-      //  gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 9;
         sidePanel.add(new JLabel(""), gbc);
 
-    //    gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 10;
         gbc.gridwidth = 0;
@@ -396,14 +358,16 @@ public class HarrisFrame extends JFrame {
 
         JLabel definitionLbl = new JLabel("*Please click REE, TEE, or BMI for a definition");
         customFontSize(definitionLbl);
-     //   gbc.weightx = 0.5;
         gbc.gridx = 0;
         gbc.gridy = 11;
         gbc.fill = GridBagConstraints.WEST;
         sidePanel.add(definitionLbl, gbc);
 
+        String strREE = "REE (or Resting Energy Expenditure), is the amount of calories one expends while at rest.";
         LblListen(strREE, REELbl);
+        String strTEE = "Total Energy Expenditure";
         LblListen(strTEE, TEELbl);
+        String strBMI = "BMI (or Body Mass Index), is a rule of thumb used to categorize one's weight as healthy or not.\nPlease note, that BMI is not one hundred percent accurate, as it is based on factors such as body weight percentage.";
         LblListen(strBMI, BMILbl);
     }
 
@@ -412,28 +376,24 @@ public class HarrisFrame extends JFrame {
      *
      * @return the string
      */
-    public static ArrayList<String> getResults() {
+    protected static ArrayList<String> getResults() {
 
         ArrayList<String> list = new ArrayList<>();
 
 
-       list.add(new String ("Patient's REE is:         " + String.format("%.1f", REE) + "\n"));
-       list.add(new String( "Patient's BMI is:         " + String.format("%.1f", BMI) + "\n"));
-       list.add(new String( "Patient's TEE is:         " + String.format("%.1f", TEE) + "\n"));
-       list.add(new String( "Calories needed :         " + String.format("%.1f", goal)+ "\n\n"));
-       list.add(new String( protein + "\n"));
-       list.add(new String( fats + "\n"));
-       list.add(new String( carbs + "\n" + "\n" + "\n"));
-       list.add(new String( "*Please remember that these figures are not set in stone, and before making any\n"));
-       list.add(new String( "major changes to patient's diet, you should consult a dietitian or physician first"));
-       list.add(new String( "\n\n------------------------------------------\n"));
-       list.add(new String(java.time.LocalDate.now() + ""));
+        list.add("Your REE is:         " + String.format("%.1f", REE) + "\n");
+        list.add("Your BMI is:         " + String.format("%.1f", BMI) + "\n");
+        list.add("Your TEE is:         " + String.format("%.1f", TEE) + "\n");
+        list.add("Calories needed :         " + String.format("%.1f", goal)+ "\n\n");
+        list.add(protein + "\n");
+        list.add(fats + "\n");
+        list.add( carbs + "\n" + "\n" + "\n");
+        list.add("*Please remember that these figures are not set in stone, and before making any\n");
+        list.add("major changes to Your diet, you should consult a dietitian or physician first");
+        list.add("\n\n------------------------------------------\n");
+        list.add(java.time.LocalDate.now() + "");
 
-
-
-
-
-       return list;
+        return list;
     }
 
     /**
@@ -449,14 +409,12 @@ public class HarrisFrame extends JFrame {
 
     }
 
-
     /**
      * Change the font of the given label
      */
-        private static void customFontSize(JLabel lbl){
-            lbl.setFont(lbl.getFont().deriveFont(16.0f));
-        }
-
+    private static void customFontSize(JLabel lbl){
+        lbl.setFont(lbl.getFont().deriveFont(16.0f));
+    }
 
 
     /**
@@ -470,23 +428,19 @@ public class HarrisFrame extends JFrame {
             } else if (!weightTxt.getText().matches("^[0-9]+$") ||  !heightTxt.getText().matches("^[0-9]+$") ||  !ageBox.getText().matches("^[0-9]+$")) {
                 JOptionPane.showMessageDialog(null, "Please enter the numeric values only for height, weight and age.");
             } else if (e.getSource() == submit) {
-                user = new Person(name, (Double.parseDouble(weightTxt.getText()) / 2.2), Double.parseDouble(heightTxt.getText()), activityBoxPro.getSelectedItem().toString(), genderBox.getSelectedItem().toString(), Integer.parseInt(ageBox.getText()), goalsBox.getSelectedItem().toString(), stressBox.getSelectedItem().toString());
-                DataCalculations.setPALPro(user);
-                DataCalculations.setSF(user);
-                DataCalculations.setBMI(user);
-                DataCalculations.setREE(user);
-                DataCalculations.setTEE();
+                user = new Person(name, (Double.parseDouble(weightTxt.getText()) / 2.2), Double.parseDouble(heightTxt.getText()), Objects.requireNonNull(activityBoxBasic.getSelectedItem()).toString(), Objects.requireNonNull(genderBox.getSelectedItem()).toString(), Integer.parseInt(ageBox.getText()), Objects.requireNonNull(goalsBox.getSelectedItem()).toString());
+                DataCalculations.setPALBasic(user);
+                DataCalculations.setSF(false);
+                DataCalculations.setVals(user);
                 DataCalculations.setGoal(user);
                 BMI = DataCalculations.getBMI();
                 REE = DataCalculations.getREE();
                 TEE = DataCalculations.getTEE();
-                PAL = DataCalculations.getPAL();
                 goal = DataCalculations.getGoal();
-                DataCalculations.settingMacros(REE, user);
+                DataCalculations.settingMacros(user);
                 protein = DataCalculations.proteinToString();
                 fats    = DataCalculations.fatsToString();
                 carbs   = DataCalculations.carbsToString() ;
-
 
                 sidePanel.removeAll();
                 fillSidePanel(goalsBox.getSelectedItem().toString());
@@ -513,7 +467,7 @@ public class HarrisFrame extends JFrame {
      * Date: September 9 2013
      * Availability: https://stackoverflow.com/questions/18704022/set-text-size-of-jcombobox-in-swing
      *********************************************************************************************/
-    class ComboBoxFontSize extends DefaultListCellRenderer {
+    static class ComboBoxFontSize extends DefaultListCellRenderer {
         public Component getListCellRendererComponent(JList list, Object obj, int i, boolean isSelected, boolean bool2) {
 
             JLabel lbl = (JLabel) super.getListCellRendererComponent(list, obj, i, isSelected, bool2);
@@ -528,12 +482,12 @@ public class HarrisFrame extends JFrame {
     /**
      * Opens the main page of the application
      */
-    public static void openMain() {
+    protected static void openMain() {
 
-        JFrame mainFrame = new HarrisFrame();
+        JFrame mainFrame = new BasicPage();
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
-        mainFrame.setTitle("REE Calculator");
+        mainFrame.setTitle("TEE Calculator");
         mainFrame.setVisible(true);
         mainFrame.setLocationRelativeTo(null);
 
@@ -543,10 +497,10 @@ public class HarrisFrame extends JFrame {
     /**
      * Opens the home page
      */
-    public static void openHome() {
+    protected static void openHome() {
         JFrame frame = new HomePage();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("REE Calculator");
+        frame.setTitle("TEE Calculator");
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
@@ -556,7 +510,7 @@ public class HarrisFrame extends JFrame {
     /**
      * Restarts when we go back to home page, in order to deal with pop up errors
      */
-    public static void restartApp() throws IOException {
+    protected static void restartApp() throws IOException {
         Runtime.getRuntime().exec("java -jar Harris_Benedict_Calculator.jar");
         System.exit(0);
     }

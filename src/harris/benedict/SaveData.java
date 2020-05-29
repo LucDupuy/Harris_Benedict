@@ -8,7 +8,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
+/**
+ * This class saves the data into a readable text format
+ */
 public class SaveData {
 
     /**
@@ -43,19 +45,17 @@ public class SaveData {
         jcf.setFileFilter(new FileNameExtensionFilter("Text File", "txt"));
 
         if (name.equals("")) {
-            jcf.setSelectedFile(new File ("TEE.txt"));
+            jcf.setSelectedFile(new File("TEE.txt"));
         } else {
             jcf.setSelectedFile(new File(name + " - TEE.txt"));
         }
-//        jcf.showSaveDialog(jcf);
-
 
             /*
             This block of code writes the data into the newly created text file
 
              */
 
-        ArrayList <String> output = HarrisFrame.getResults();
+        ArrayList<String> output = ProfessionalPage.getResults();
         int result = jcf.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             try (PrintWriter out = new PrintWriter(jcf.getSelectedFile().getAbsolutePath())) {
@@ -66,7 +66,7 @@ public class SaveData {
                     out.println("Hello " + name + "! This is your recommended, average daily nutrition intake.");
                 }
                 out.println();
-                for(String str: output) {
+                for (String str : output) {
                     out.println(str);
                 }
             } catch (FileNotFoundException e) {

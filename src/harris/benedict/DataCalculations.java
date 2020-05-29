@@ -1,9 +1,12 @@
 package harris.benedict;
 
 
-
 import javax.swing.*;
 
+
+/**
+ * All of the calculations done by the program
+ */
 public class DataCalculations {
 
     /**
@@ -25,68 +28,85 @@ public class DataCalculations {
     static double PAL;
     static double BMI;
     static double REE;
-    static double goal;
+    static double goalCalories;
     static double SF;
     static double TEE;
 
 
+
+
+
     /**
-     * Setting the factor of activity for the user
+     * Setting the factor of activity for the user (BASIC)
      *
      * @param person the current user
      */
-    public static void setPAL(Person person) {
-        String val = person.activity;
-
-        if (val == "Light") {
+    protected static void setPALBasic(Person person) {
+        if (person.activity == "Light") {
             PAL = 1.53;
-        } else if (val == "Moderate") {
+        } else if (person.activity == "Moderate") {
             PAL = 1.76;
-        } else if (val == "Vigorous") {
+        } else if (person.activity == "Vigorous") {
             PAL = 2.25;
         }
     }
 
-    /**
-     * Setting the factor of activity for the user
-     *
-     * @param person the current user
-     */
-    public static void setPALPro(Person person) {
-        String val = person.activity;
-            PAL = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter a value for patient's activity factor", "1.0"));
-    }
-
-
-    protected static void setSF(Person person) {
-        SF = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter a value for patient's stress factor", "1.0"));
-
-    }
 
     /**
-     * Setting the BMI for the current user
-     *
-     * @param person the current user
+     * Setting the factor of activity for the user (PRO)
      */
-    public static void setBMI(Person person) {
-        BMI = (person.weight) / (Math.pow((person.height / 100), 2));
-    }
+    protected static void setPALPro() {
+        boolean correct = false;
 
-    /**
-     * Setting the REE for the user
-     *
-     * @param person the current user
-     */
-    public static void setREE(Person person) {
-        if (person.gender == "Male") {
-            REE = (66.5 + (13.75 * (person.weight)) + (5.003 * person.height) - (6.755 * person.age));
-        } else {
-            REE = (655.1 + (9.563 * (person.weight)) + (1.850 * person.height) - (4.676 * person.age));
+        while (!correct) {
+            try {
+                PAL = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter a value for patient's activity factor", "1.0"));
+                correct = true;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Please enter numeric values only", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 
 
-    protected static void setTEE() {
+    /**
+     * Setting the stress factor for the user (PRO)
+     *
+     */
+    protected static void setSF(Boolean bool) {
+
+        //For basic users
+        if (bool == false) {
+            SF = 1.0;
+            return;
+        }
+
+        boolean correct = false;
+
+        while (!correct) {
+            try {
+                SF = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter a value for patient's stress factor", "1.0"));
+                correct = true;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Please enter numeric values only", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }
+
+    /**
+     * Setting the REE, TEE and BMI for the user
+     *
+     * @param person the current user
+     */
+    protected static void setVals(Person person) {
+
+        BMI = (person.getWeight()) / (Math.pow((person.getHeight() / 100), 2));
+
+        if (person.gender.equals("Male")) {
+            REE = (66.5 + (13.75 * (person.getWeight())) + (5.003 * person.getHeight()) - (6.755 * person.getAge()));
+        } else {
+            REE = (655.1 + (9.563 * (person.getWeight())) + (1.850 * person.getHeight()) - (4.676 * person.getAge()));
+        }
         TEE = REE * PAL * SF;
     }
 
@@ -96,24 +116,36 @@ public class DataCalculations {
      */
     protected static void setGoal(Person person) {
 
-        if (person.goal.equals("Lose Weight (0.5 lbs)")) {
-            goal = TEE - (1750 / 7.0);
-        } else if (person.goal.equals("Lose Weight (1.0 lbs)")) {
-            goal = TEE - (3500 / 7.0);
-        } else if (person.goal.equals("Lose Weight (1.5 lbs)")) {
-            goal = TEE - (5250 / 7.0);
-        } else if (person.goal.equals("Lose Weight (2.0 lbs)")) {
-            goal = TEE - (7000 / 7.0);
-        } else if (person.goal.equals("Maintain Weight")) {
-            goal = TEE;
-        } else if (person.goal.equals("Gain Weight (0.5 lbs)")) {
-            goal = TEE + (1750 / 7.0);
-        } else if (person.goal.equals("Gain Weight (1.0 lbs)")) {
-            goal = TEE + (3500 / 7.0);
-        } else if (person.goal.equals("Gain Weight (1.5 lbs)")) {
-            goal = TEE + (5250 / 7.0);
-        } else if (person.goal.equals("Gain Weight (2.0 lbs)")) {
-            goal = TEE + (7000 / 7.0);
+        String strGoal = person.getGoal();
+
+        switch (strGoal) {
+            case "Lose Weight (0.5 lbs)":
+                goalCalories = TEE - (1750 / 7.0);
+                break;
+            case "Lose Weight (1.0 lbs)":
+                goalCalories = TEE - (3500 / 7.0);
+                break;
+            case "Lose Weight (1.5 lbs)":
+                goalCalories = TEE - (5250 / 7.0);
+                break;
+            case "Lose Weight (2.0 lbs)":
+                goalCalories = TEE - (7000 / 7.0);
+                break;
+            case "Maintain Weight":
+                goalCalories = TEE;
+                break;
+            case "Gain Weight (0.5 lbs)":
+                goalCalories = TEE + (1750 / 7.0);
+                break;
+            case "Gain Weight (1.0 lbs)":
+                goalCalories = TEE + (3500 / 7.0);
+                break;
+            case "Gain Weight (1.5 lbs)":
+                goalCalories = TEE + (5250 / 7.0);
+                break;
+            case "Gain Weight (2.0 lbs)":
+                goalCalories = TEE + (7000 / 7.0);
+                break;
         }
     }
 
@@ -125,7 +157,7 @@ public class DataCalculations {
      * @return the string representation value of the macros
      */
 
-    static void settingMacros(double REE, Person person) {
+    protected static void settingMacros(Person person) {
 
         double min_protein;
         double max_protein;
@@ -140,12 +172,12 @@ public class DataCalculations {
 
         min_protein = person.weight * 0.8;
         max_protein = person.weight * 1;
-        min_fats = (goal * 0.2) / fatDivide;
-        max_fats = (goal * 0.35) / fatDivide;
-        min_carbs = (goal * 0.45) / carbDivide;
-        max_carbs = (goal * 0.65) / carbDivide;
+        min_fats = (goalCalories * 0.2) / fatDivide;
+        max_fats = (goalCalories * 0.35) / fatDivide;
+        min_carbs = (goalCalories * 0.45) / carbDivide;
+        max_carbs = (goalCalories * 0.65) / carbDivide;
 
-//THIS IS AVERAGE NEEDED
+        //THIS IS AVERAGE NEEDED
         protein = (min_protein + max_protein) / 2;
         carbs = (min_carbs + max_carbs) / 2;
         fats = (min_fats + max_fats) / 2;
@@ -157,7 +189,7 @@ public class DataCalculations {
      *
      * @return the string
      */
-    static String proteinToString() {
+    protected static String proteinToString() {
         return "Protein Needed: " + String.format("%.1f", protein) + " grams";
     }
 
@@ -166,7 +198,7 @@ public class DataCalculations {
      *
      * @return the string
      */
-    static String fatsToString() {
+    protected static String fatsToString() {
         return "Fats Needed: " + String.format("%.1f", fats) + " grams";
     }
 
@@ -175,17 +207,8 @@ public class DataCalculations {
      *
      * @return the string
      */
-    static String carbsToString() {
+    protected static String carbsToString() {
         return "Carbs Needed: " + String.format("%.1f", carbs) + " grams";
-    }
-
-    /**
-     * Getter method for the user's PAL
-     *
-     * @return the user's PAL
-     */
-     static double getPAL() {
-        return PAL;
     }
 
     /**
@@ -193,7 +216,7 @@ public class DataCalculations {
      *
      * @return the user's BMI
      */
-    static double getBMI() {
+    protected static double getBMI() {
         return BMI;
     }
 
@@ -202,11 +225,17 @@ public class DataCalculations {
      *
      * @return the user's REE
      */
-    static double getREE() {
+    protected static double getREE() {
         return REE;
     }
 
-    static double getTEE() {
+
+    /**
+     * Getter method for the user's TEE
+     *
+     * @return the user's TEE
+     */
+    protected static double getTEE() {
         return TEE;
     }
 
@@ -216,5 +245,7 @@ public class DataCalculations {
      *
      * @return the goal in calories
      */
-    static double getGoal() { return goal; }
+    protected static double getGoal() {
+        return goalCalories;
+    }
 }

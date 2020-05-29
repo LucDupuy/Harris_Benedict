@@ -1,7 +1,5 @@
 package harris.benedict;
 
-//import javafx.scene.effect.DropShadow;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,32 +10,24 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
-
-
+/**
+ * Creates the homepage for the application
+ */
 public class HomePage extends JFrame {
 
-    /**
-     *
-     */
-  //  private static final long serialVersionUID = 1L;
-    private static JButton newButtonBasic = new JButton("NEW (BASIC)");
-    private static JButton newButtonPro = new JButton("NEW (PROFESSIONAL)");
-    private BufferedImage image;
-
-
+    private static final JButton newButtonBasic = new JButton("NEW (BASIC)");
+    private static final JButton newButtonPro = new JButton("NEW (PROFESSIONAL)");
 
     /**
      * The constructor for the main page object
      */
-    public HomePage() {
+    protected HomePage() {
         setSize(800, 800);
         setResizable(false);
 
         add(createMain(), BorderLayout.NORTH);
         add(createImagePanel(), BorderLayout.CENTER);
         add(createButtonPanel(), BorderLayout.SOUTH);
-
-
     }
 
     /**
@@ -52,10 +42,9 @@ public class HomePage extends JFrame {
 
         JLabel label = new JLabel("Harris Benedict Tool");
         label.setFont(new Font(Font.SERIF, 1, 40));
-        panel.add(label);
 
-        //panel.setBackground( Color.decode("#e8dee7"));
-        panel.setBackground( Color.decode("#d7d5d5"));
+        panel.add(label);
+        panel.setBackground(Color.decode("#d7d5d5"));
         setSize(650, 650);
 
         return panel;
@@ -78,7 +67,7 @@ public class HomePage extends JFrame {
         panel.add(newButtonPro);
         newButtonPro.addActionListener(new Listen());
 
-        panel.setBackground( Color.decode("#d7d5d5"));
+        panel.setBackground(Color.decode("#d7d5d5"));
 
         return panel;
     }
@@ -89,17 +78,13 @@ public class HomePage extends JFrame {
      *
      * @return the panel to hold the image
      */
-
     private JPanel createImagePanel() {
         JPanel panel = new JPanel();
 
-
-
-
         try {
 
-            image = ImageIO.read(new File("HomePic.jpg"));
-            Image scaledImg = image.getScaledInstance(400,450, Image.SCALE_SMOOTH);
+            BufferedImage image = ImageIO.read(new File("HomePic.jpg"));
+            Image scaledImg = image.getScaledInstance(400, 450, Image.SCALE_SMOOTH);
             ImageIcon img = new ImageIcon(scaledImg);
             JLabel imgLbl = new JLabel();
             imgLbl.setIcon(img);
@@ -108,7 +93,7 @@ public class HomePage extends JFrame {
             JOptionPane.showMessageDialog(null, "Error IL01: Image Cannot Be Loaded, please contact dev team", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        panel.setBackground( Color.decode("#d7d5d5"));
+        panel.setBackground(Color.decode("#d7d5d5"));
 
         return panel;
     }
@@ -123,12 +108,10 @@ public class HomePage extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == newButtonPro) {
                 dispose();
-                //minimizes
-                //setState ( Frame.ICONIFIED );
-                HarrisFrame.setUserName();
+                ProfessionalPage.setUserName();
             } else {
-                System.out.println("BASIC VERSION NOT MADE YET");
-                System.exit(0);
+                dispose();
+                BasicPage.setUserName();
             }
         }
     }
