@@ -47,7 +47,7 @@ public class ProfessionalPage extends JFrame {
      */
     private static final JButton submit = new JButton("SUBMIT");
     private static final JButton save = new JButton("SAVE");
-    private static final JButton home = new JButton("  HOME ");
+ //   private static final JButton home = new JButton("  HOME ");
 
     /**
      * Labels to explain each part of the page
@@ -242,8 +242,8 @@ public class ProfessionalPage extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 17;
 
-        mainPanel.add(home, gbc);
-        home.addActionListener(new Listen());
+       // mainPanel.add(home, gbc);
+       // home.addActionListener(new Listen());
 
         mainPanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(4.0f)));
         mainPanel.setPreferredSize(new Dimension(450, 5));
@@ -457,17 +457,11 @@ public class ProfessionalPage extends JFrame {
 
 
             } else if (e.getSource() == save) {
-                SaveData.writeData(user.getName());
-            } else if (e.getSource() == home) {
-                try {
-                    restartApp();
-                } catch (IOException error) {
-                    JOptionPane.showMessageDialog(null, "Error RE01: Application cannot restart. Please contact dev team", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                SaveData.writeData(user.getName(), "Pro");
+            }
 
             }
         }
-    }
 
 
     /*********************************************************************************************
@@ -522,5 +516,6 @@ public class ProfessionalPage extends JFrame {
     protected static void restartApp() throws IOException {
         Runtime.getRuntime().exec("java -jar Harris_Benedict_Calculator.jar");
         System.exit(0);
+
     }
 }

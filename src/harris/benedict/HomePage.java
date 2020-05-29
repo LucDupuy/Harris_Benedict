@@ -17,6 +17,7 @@ public class HomePage extends JFrame {
 
     private static final JButton newButtonBasic = new JButton("NEW (BASIC)");
     private static final JButton newButtonPro = new JButton("NEW (PROFESSIONAL)");
+    private static final JButton readMe = new JButton("READ ME");
 
     /**
      * The constructor for the main page object
@@ -67,6 +68,11 @@ public class HomePage extends JFrame {
         panel.add(newButtonPro);
         newButtonPro.addActionListener(new Listen());
 
+        readMe.setPreferredSize(new Dimension(200, 50));
+        readMe.setFont(new Font("Airal", 1, 15));
+        panel.add(readMe);
+        readMe.addActionListener(new Listen());
+
         panel.setBackground(Color.decode("#d7d5d5"));
 
         return panel;
@@ -109,9 +115,15 @@ public class HomePage extends JFrame {
             if (e.getSource() == newButtonPro) {
                 dispose();
                 ProfessionalPage.setUserName();
-            } else {
+            } else if (e.getSource() == newButtonBasic){
                 dispose();
                 BasicPage.setUserName();
+            } else {
+                JOptionPane.showMessageDialog(null, "This program is meant to be a guide to help you in your weight loss or weight gain journey. You will be able to save your profile\n" +
+                                                                          "into a text file." +
+                                                                          "\n\nSpecial thanks to Nicole for her professional opinions and hard work." +
+                                                                          "\n\nThis program is meant to be a guide, please consult a dietitian or physician before making any changes to your diet" +
+                                                                          "\n\nAll values and equations are taken from the Harris-Benedict equation (Harris & Benedict 1918)");
             }
         }
     }

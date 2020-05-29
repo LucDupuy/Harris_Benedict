@@ -42,12 +42,16 @@ public class DataCalculations {
      * @param person the current user
      */
     protected static void setPALBasic(Person person) {
-        if (person.activity == "Light") {
-            PAL = 1.53;
-        } else if (person.activity == "Moderate") {
-            PAL = 1.76;
-        } else if (person.activity == "Vigorous") {
-            PAL = 2.25;
+        switch (person.activity) {
+            case "Light":
+                PAL = 1.53;
+                break;
+            case "Moderate":
+                PAL = 1.76;
+                break;
+            case "Vigorous":
+                PAL = 2.25;
+                break;
         }
     }
 
@@ -78,7 +82,7 @@ public class DataCalculations {
     protected static void setSF(Boolean bool, String stress) {
 
         //For basic users
-        if (bool == false) {
+        if (!bool) {
             SF = 1.0;
             return;
         }

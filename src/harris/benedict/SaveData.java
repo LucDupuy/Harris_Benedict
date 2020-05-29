@@ -18,7 +18,7 @@ public class SaveData {
      *
      * @param name the name of the user
      */
-    protected static void writeData(String name) {
+    protected static void writeData(String name, String userType) {
 
 
         String pathToSave = System.getProperty("user.dir") + File.separator + "Saved Profiles";
@@ -54,8 +54,12 @@ public class SaveData {
             This block of code writes the data into the newly created text file
 
              */
-
-        ArrayList<String> output = ProfessionalPage.getResults();
+        ArrayList<String> output;
+        if (userType.equals("Basic")) {
+            output = BasicPage.getResults();
+        } else {
+            output = ProfessionalPage.getResults();
+        }
         int result = jcf.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             try (PrintWriter out = new PrintWriter(jcf.getSelectedFile().getAbsolutePath())) {
