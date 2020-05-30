@@ -15,14 +15,15 @@ public class BasicPage extends JFrame {
 
     private static String name = "";
     private Person user;
+    private static final double WEIGHTCONVERSION = 2.2;
 
     /**
      * Text fields to input info
      */
     private static final JTextField weightTxt = new JTextField("0");
     private static final JTextField heightTxt = new JTextField("0");
-    private static final JTextField nameTxt = new JTextField(10);
-    private static final JTextField ageBox = new JTextField("0");
+    private static final JTextField nameTxt   = new JTextField(10);
+    private static final JTextField ageBox    = new JTextField("0");
 
     /**
      * Variables to hold the values of the user's PAL, BMI and REE
@@ -90,95 +91,70 @@ public class BasicPage extends JFrame {
      */
     private JPanel createMainPanel() {
 
-
         GridBagConstraints gbc = new GridBagConstraints();
         mainPanel.setLayout(new GridBagLayout());
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.NORTHWEST;
 
-
-
-        gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.PAGE_START;
         mainPanel.add(Common.getPersonalLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 1;
         mainPanel.add(Common.getGenderLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 2;
 
         mainPanel.add(Common.getGenders(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 3;
         mainPanel.add(Common.getAgeLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 4;
         mainPanel.add(ageBox, gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 5;
         mainPanel.add(Common.getWeightLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 6;
         mainPanel.add(weightTxt, gbc);
 
-
         weightTxt.setColumns(5);
 
-        gbc.gridx = 0;
         gbc.gridy = 7;
         mainPanel.add(Common.getHeightLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 8;
         mainPanel.add(heightTxt, gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 9;
         mainPanel.add(Common.getGoalsLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 10;
         mainPanel.add(Common.getGoalsBox(), gbc);
 
-
         heightTxt.setColumns(5);
 
-        gbc.gridx = 0;
         gbc.gridy = 11;
         mainPanel.add(Common.getActivityLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 12;
         mainPanel.add(Common.getActivityBoxBasic(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 13;
 
-        gbc.gridx = 0;
         gbc.gridy = 14;
         mainPanel.add(new JLabel(""), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 15;
         gbc.fill = GridBagConstraints.LAST_LINE_START;
         mainPanel.add(Common.getSubmit(), gbc);
         Common.getSubmit().addActionListener(new Listen());
 
-        gbc.gridx = 0;
         gbc.gridy = 16;
-
-      //  mainPanel.add(home, gbc);
-     //   home.addActionListener(new Listen());
 
         mainPanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(4.0f)));
         mainPanel.setPreferredSize(new Dimension(400, 5));
@@ -194,17 +170,10 @@ public class BasicPage extends JFrame {
      * @return the panel that gets added to the right hand side of the frame
      */
     private JPanel createSidePanel() {
-
-        sidePanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(4.0f)));
-        sidePanel.setPreferredSize(new Dimension(450, 5));
-        sidePanel.setVisible(false);
-        sidePanel.setBackground(Color.decode("#d7d5d5"));
+        Common.getSidePanel(sidePanel);
         addSaveListener();
-
-
         return sidePanel;
     }
-
 
     /**
      * This method is needed to add the actionListener to the save button only once, avoiding
@@ -305,11 +274,11 @@ public class BasicPage extends JFrame {
         sidePanel.add(definitionLbl, gbc);
 
         String strREE = "REE (or Resting Energy Expenditure), is the amount of calories one expends while at rest.";
-        LblListen(strREE, REELbl);
-        String strTEE = "Total Energy Expenditure";
-        LblListen(strTEE, TEELbl);
+        Common.LblListen(strREE, REELbl);
+        String strTEE = "TEE (or Total Energy Expenditure), is the amount of calories burned when taking exercise into account.";
+        Common.LblListen(strTEE, TEELbl);
         String strBMI = "BMI (or Body Mass Index), is a rule of thumb used to categorize one's weight as healthy or not.\nPlease note, that BMI is not one hundred percent accurate, as it is based on factors such as body weight percentage.";
-        LblListen(strBMI, BMILbl);
+        Common.LblListen(strBMI, BMILbl);
     }
 
     /**
@@ -323,32 +292,16 @@ public class BasicPage extends JFrame {
     }
 
     /**
-     * Method to separate the adding of mouse listeners to the REE and BMI JLabels
-     */
-    private static void LblListen(String msg, JLabel lbl) {
-        lbl.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(null, msg);
-            }
-        });
-
-    }
-
-
-
-    /**
      * This class enables the user to click buttons and have certain actions performed.
      */
     class Listen implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == Common.getSubmit() && weightTxt.getText().equals("") || heightTxt.getText().equals("") || ageBox.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Please enter the missing information.");
-            } else if (!weightTxt.getText().matches("^[0-9]+$") || !heightTxt.getText().matches("^[0-9]+$") || !ageBox.getText().matches("^[0-9]+$")) {
+
+             if (!weightTxt.getText().matches("^[0-9]+$") || !heightTxt.getText().matches("^[0-9]+$") || !ageBox.getText().matches("^[0-9]+$")) {
                 JOptionPane.showMessageDialog(null, "Please enter the numeric values only for height, weight and age.");
             } else if (e.getSource() == Common.getSubmit()) {
-                user = new Person(name, (Double.parseDouble(weightTxt.getText()) / 2.2), Double.parseDouble(heightTxt.getText()), Objects.requireNonNull(Common.getActivityBoxBasic().getSelectedItem()).toString(), Objects.requireNonNull(Common.getGenders().getSelectedItem()).toString(), Integer.parseInt(ageBox.getText()), Objects.requireNonNull(Common.getGoalsBox().getSelectedItem()).toString());
+                user = new Person(name, (Double.parseDouble(weightTxt.getText()) / WEIGHTCONVERSION), Double.parseDouble(heightTxt.getText()), Objects.requireNonNull(Common.getActivityBoxBasic().getSelectedItem()).toString(), Objects.requireNonNull(Common.getGenders().getSelectedItem()).toString(), Integer.parseInt(ageBox.getText()), Objects.requireNonNull(Common.getGoalsBox().getSelectedItem()).toString());
                 DataCalculations.setPALBasic(user);
                 DataCalculations.setSF(false, "");
                 DataCalculations.setVals(user);
@@ -373,9 +326,6 @@ public class BasicPage extends JFrame {
         }
     }
 
-
-
-
     /**
      * Opens the main page of the application
      */
@@ -387,9 +337,7 @@ public class BasicPage extends JFrame {
         mainFrame.setTitle("TEE Calculator");
         mainFrame.setVisible(true);
         mainFrame.setLocationRelativeTo(null);
-
     }
-
 
     /**
      * Opens the home page
@@ -401,14 +349,5 @@ public class BasicPage extends JFrame {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-    }
-
-
-    /**
-     * Restarts when we go back to home page, in order to deal with pop up errors
-     */
-    protected static void restartApp() throws IOException {
-        Runtime.getRuntime().exec("java -jar Harris_Benedict_Calculator.jar");
-        System.exit(0);
     }
 }

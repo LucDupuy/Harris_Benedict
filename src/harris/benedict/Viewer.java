@@ -25,10 +25,9 @@ public class Viewer {
 
 
 //Work on stolen code
-//condense code
-//creation of object is cancer to look at
 //change name from HB
 //Check that restarting the app works properly
 //Web & Mac functionality
+//Fix cancelling things
 
 //fix javadoc

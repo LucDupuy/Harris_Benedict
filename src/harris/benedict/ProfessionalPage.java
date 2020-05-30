@@ -1,7 +1,6 @@
 package harris.benedict;
 
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -16,6 +15,7 @@ public class ProfessionalPage extends JFrame {
 
     private static String name = "";
     private Person user;
+    private static final double WEIGHTCONVERSION = 2.2;
 
     /**
      * Text fields to input info
@@ -75,9 +75,10 @@ public class ProfessionalPage extends JFrame {
         } else if (result == JOptionPane.YES_OPTION) {
             name = nameTxt.getText();
             openMain();
-        } if (result == JOptionPane.NO_OPTION) {
-        name = "";
-        openMain();
+        }
+        if (result == JOptionPane.NO_OPTION) {
+            name = "";
+            openMain();
         } else if (result == JOptionPane.CLOSED_OPTION) {
             openHome();
         }
@@ -97,88 +98,66 @@ public class ProfessionalPage extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.NORTHWEST;
 
-
-        gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.PAGE_START;
         mainPanel.add(Common.getPersonalLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 1;
         mainPanel.add(Common.getGenderLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 2;
-
         mainPanel.add(Common.getGenders(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 3;
         mainPanel.add(Common.getAgeLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 4;
         mainPanel.add(ageBox, gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 5;
         mainPanel.add(Common.getWeightLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 6;
         mainPanel.add(weightTxt, gbc);
 
-
         weightTxt.setColumns(5);
 
-        gbc.gridx = 0;
         gbc.gridy = 7;
         mainPanel.add(Common.getHeightLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 8;
         mainPanel.add(heightTxt, gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 9;
         mainPanel.add(Common.getGoalsLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 10;
         mainPanel.add(Common.getGoalsBox(), gbc);
 
-
         heightTxt.setColumns(5);
 
-        gbc.gridx = 0;
         gbc.gridy = 11;
         mainPanel.add(Common.getActivityLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 12;
         mainPanel.add(Common.getActivityBoxPro(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 13;
         mainPanel.add(Common.getStressLbl(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 14;
         mainPanel.add(Common.getStressLevelBox(), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 15;
         mainPanel.add(new JLabel(""), gbc);
 
-        gbc.gridx = 0;
         gbc.gridy = 16;
         gbc.fill = GridBagConstraints.LAST_LINE_START;
         mainPanel.add(Common.getSubmit(), gbc);
         Common.getSubmit().addActionListener(new Listen());
 
-        gbc.gridx = 0;
         gbc.gridy = 17;
 
        // mainPanel.add(home, gbc);
@@ -198,14 +177,8 @@ public class ProfessionalPage extends JFrame {
      * @return the panel that gets added to the right hand side of the frame
      */
     private JPanel createSidePanel() {
-
-        sidePanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(4.0f)));
-        sidePanel.setPreferredSize(new Dimension(450, 5));
-        sidePanel.setVisible(false);
-        sidePanel.setBackground( Color.decode("#d7d5d5"));
+        Common.getSidePanel(sidePanel);
         addSaveListener();
-
-
         return sidePanel;
     }
 
@@ -311,11 +284,11 @@ public class ProfessionalPage extends JFrame {
         sidePanel.add(definitionLbl, gbc);
 
         String strREE = "REE (or Resting Energy Expenditure), is the amount of calories one expends while at rest.";
-        LblListen(strREE, REELbl);
-        String strTEE = "Total Energy Expenditure";
-        LblListen(strTEE, TEELbl);
+        Common.LblListen(strREE, REELbl);
+        String strTEE = "TEE (or Total Energy Expenditure), is the amount of calories burned when taking exercise into account.";
+        Common.LblListen(strTEE, TEELbl);
         String strBMI = "BMI (or Body Mass Index), is a rule of thumb used to categorize one's weight as healthy or not.\nPlease note, that BMI is not one hundred percent accurate, as it is based on factors such as body weight percentage.";
-        LblListen(strBMI, BMILbl);
+        Common.LblListen(strBMI, BMILbl);
     }
 
     /**
@@ -328,20 +301,7 @@ public class ProfessionalPage extends JFrame {
 
     }
 
-    /**
-     * Method to separate the adding of mouse listeners to the REE and BMI JLabels
-     */
-    private static void LblListen(String msg, JLabel lbl) {
-        lbl.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(null, msg);
-            }
-        });
-
-    }
-
-    /**
+     /**
      * Change the font of the given label
      */
         private static void customFontSize(JLabel lbl){
@@ -355,12 +315,10 @@ public class ProfessionalPage extends JFrame {
     class Listen implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == Common.getSubmit() && weightTxt.getText().equals("") || heightTxt.getText().equals("") || ageBox.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Please enter the missing information.");
-            } else if (!weightTxt.getText().matches("^[0-9]+$") ||  !heightTxt.getText().matches("^[0-9]+$") ||  !ageBox.getText().matches("^[0-9]+$")) {
+            if (!weightTxt.getText().matches("^[0-9]+$") ||  !heightTxt.getText().matches("^[0-9]+$") ||  !ageBox.getText().matches("^[0-9]+$")) {
                 JOptionPane.showMessageDialog(null, "Please enter the numeric values only for height, weight and age.");
             } else if (e.getSource() == Common.getSubmit()) {
-                user = new Person(name, (Double.parseDouble(weightTxt.getText()) / 2.2), Double.parseDouble(heightTxt.getText()), Objects.requireNonNull(Common.getActivityBoxPro().getSelectedItem()).toString(), Objects.requireNonNull(Common.getGenders().getSelectedItem()).toString(), Integer.parseInt(ageBox.getText()), Objects.requireNonNull(Common.getGoalsBox().getSelectedItem()).toString(), Objects.requireNonNull(Common.getStressLevelBox().getSelectedItem()).toString());
+                user = new Person(name, (Double.parseDouble(weightTxt.getText()) / WEIGHTCONVERSION), Double.parseDouble(heightTxt.getText()), Objects.requireNonNull(Common.getActivityBoxPro().getSelectedItem()).toString(), Objects.requireNonNull(Common.getGenders().getSelectedItem()).toString(), Integer.parseInt(ageBox.getText()), Objects.requireNonNull(Common.getGoalsBox().getSelectedItem()).toString(), Objects.requireNonNull(Common.getStressLevelBox().getSelectedItem()).toString());
                 DataCalculations.setPALPro(Common.getActivityBoxPro().getSelectedItem().toString());
                 DataCalculations.setSF(true, Common.getStressLevelBox().getSelectedItem().toString());
                 DataCalculations.setVals(user);
@@ -374,7 +332,6 @@ public class ProfessionalPage extends JFrame {
                 fats    = DataCalculations.fatsToString();
                 carbs   = DataCalculations.carbsToString() ;
 
-
                 sidePanel.removeAll();
                 fillSidePanel(Common.getGoalsBox().getSelectedItem().toString());
                 revalidate();
@@ -387,25 +344,6 @@ public class ProfessionalPage extends JFrame {
             }
         }
 
-
-    /*********************************************************************************************
-     * Title: Set text sie of JComboBox in Swing
-     * Author: Thompson, A
-     * Date: September 9 2013
-     * Availability: https://stackoverflow.com/questions/18704022/set-text-size-of-jcombobox-in-swing
-     *********************************************************************************************/
-    static class ComboBoxFontSize extends DefaultListCellRenderer {
-        public Component getListCellRendererComponent(JList list, Object obj, int i, boolean isSelected, boolean bool2) {
-
-            JLabel lbl = (JLabel) super.getListCellRendererComponent(list, obj, i, isSelected, bool2);
-            Font font = new Font((String) obj, Font.BOLD, 16);
-            lbl.setFont(font);
-            return lbl;
-        }
-    }
-
-
-
     /**
      * Opens the main page of the application
      */
@@ -417,9 +355,7 @@ public class ProfessionalPage extends JFrame {
         mainFrame.setTitle("TEE Calculator");
         mainFrame.setVisible(true);
         mainFrame.setLocationRelativeTo(null);
-
     }
-
 
     /**
      * Opens the home page
@@ -431,15 +367,5 @@ public class ProfessionalPage extends JFrame {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-    }
-
-
-    /**
-     * Restarts when we go back to home page, in order to deal with pop up errors
-     */
-    protected static void restartApp() throws IOException {
-        Runtime.getRuntime().exec("java -jar Harris_Benedict_Calculator.jar");
-        System.exit(0);
-
     }
 }

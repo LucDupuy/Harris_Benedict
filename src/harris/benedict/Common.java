@@ -2,6 +2,8 @@ package harris.benedict;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Common {
@@ -126,6 +128,27 @@ public class Common {
 
     protected static JButton getSave(){
         return save;
+    }
+
+    protected static JPanel getSidePanel(JPanel sidePanel){
+        sidePanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(4.0f)));
+        sidePanel.setPreferredSize(new Dimension(450, 5));
+        sidePanel.setVisible(false);
+        sidePanel.setBackground( Color.decode("#d7d5d5"));
+        return sidePanel;
+    }
+
+    /**
+     * Method to separate the adding of mouse listeners to the REE and BMI JLabels
+     */
+    protected static void LblListen(String msg, JLabel lbl) {
+        lbl.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JOptionPane.showMessageDialog(null, msg);
+            }
+        });
+
     }
 
     protected static ArrayList<String> getResults(double REE, double BMI, double TEE, double goal, String protein, String fats, String carbs) {
