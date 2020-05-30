@@ -104,7 +104,6 @@ public class HomePage extends JFrame {
         return panel;
     }
 
-
     /**
      * This class deals with button clicks
      */
