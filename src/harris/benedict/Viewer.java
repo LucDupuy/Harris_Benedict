@@ -28,3 +28,7 @@ public class Viewer {
 //condense code
 //creation of object is cancer to look at
 //change name from HB
+//Check that restarting the app works properly
+//Web & Mac functionality
+
+//fix javadoc

@@ -14,54 +14,8 @@ import java.util.Objects;
  */
 public class ProfessionalPage extends JFrame {
 
-
-    /**
-     * Holds the name of the person
-     */
     private static String name = "";
-
-    /**
-     * Person object to store information
-     */
     private Person user;
-
-    /**
-     * Arrays containing choices
-     */
-    private static final String[] genders = {"Male", "Female"};
-    private static final String[] activitiesPRO = {"Resting (1.0-1.4)", "Asleep/Sedated (0.9-1.1)", "Lying Still (1.0-1.1)", "Spinal cord injury (1.1)", "Bedrest (1.15-1.2)", "Mobilizing Occasionally (1.15-1.4)", "Sedentary/Light Activity (1.5-1.6)", "Mobilizing Frequently (1.4-1.5)", "Regular Physiotherapy (1.5-1.6)", "Moderate Activity (1.6-1.8)"};
-    private static final String[] weightGoals = {"Lose Weight (0.5 lbs)","Lose Weight (1.0 lbs)","Lose Weight (1.5 lbs)","Lose Weight (2.0 lbs)", "Maintain Weight", "Gain Weight (0.5 lbs)","Gain Weight (1.0 lbs)","Gain Weight (1.5 lbs)","Gain Weight (2.0 lbs)"};
-    private static final String[] stressLevel = {"No Stress (1.0)", "Cancer (0.8-1.5)", "Elective Surgery (1.0-1.1)", "Peritonitis (1.05-1.25)", "Multiple Bone Fractures (1.1-1.3)", "Fever (1.2 per 1\u00B0C > 37\u00B0C)", "Spinal Cord Injury (1.2)", "Sepsis (1.2-1.4)", "Severe Infection (1.2-1.6)", "Burns (1.2-2.0)", "Infection with trauma (1.3-1.55)", "Multiple Trauma/Traumatic Brain Injury (1.4))"};
-
-    /**
-     * Boxes visualising those choices
-     */
-    private static final JComboBox<String> genderBox   = new JComboBox<>(genders);
-    private static final JComboBox<String> activityBoxPro = new JComboBox<>(activitiesPRO);
-    private static final JComboBox<String> stressBox   = new JComboBox<>(stressLevel);
-    private static final JComboBox<String> goalsBox    = new JComboBox<>(weightGoals);
-
-
-    /**
-     * Button used to submit the information
-     */
-    private static final JButton submit = new JButton("SUBMIT");
-    private static final JButton save = new JButton("SAVE");
- //   private static final JButton home = new JButton("  HOME ");
-
-    /**
-     * Labels to explain each part of the page
-     */
-    private static final JLabel nameLbl     = new JLabel("Please enter patient's name: ");
-    private static final JLabel genderLbl   = new JLabel("       Please select patient's sex             ");
-    private static final JLabel weightLbl   = new JLabel("\n     Please enter weight in pounds        ");
-    private static final JLabel heightLbl   = new JLabel("\n     Please enter height in centimetres ");
-    private static final JLabel activityLbl = new JLabel("\n     Please select patient's level of typical daily activity");
-    private static final JLabel ageLbl      = new JLabel("\n     Please enter patient's age                        ");
-    private static final JLabel goalsLbl    = new JLabel("\n     Please select patient's goal (in a week)");
-    private static final JLabel stressLbl   = new JLabel("\n     Please select patient's stress level");
-    JLabel personalInfo = new JLabel("<HTML><U>PERSONAL INFORMATION</U></HTML>", SwingConstants.CENTER);
-    JLabel resultsLbl = new JLabel("<HTML><U>RESULTS</U></HTML>", SwingConstants.CENTER);
 
     /**
      * Text fields to input info
@@ -100,7 +54,7 @@ public class ProfessionalPage extends JFrame {
         setSize(1000, 600);
         add(createMainPanel(), BorderLayout.LINE_START);
         add(createSidePanel(), BorderLayout.EAST);
-        getRootPane().setDefaultButton(submit);
+        getRootPane().setDefaultButton(Common.getSubmit());
     }
 
     /**
@@ -111,7 +65,7 @@ public class ProfessionalPage extends JFrame {
         String[] buttons = {"Create Profile", "Leave Name Blank"};
 
         JPanel panel = new JPanel();
-        panel.add(nameLbl);
+        panel.add(Common.getNameLbl());
         panel.add(nameTxt);
 
         int result = JOptionPane.showOptionDialog(null, panel, "Create Profile", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,null, buttons, null);
@@ -144,40 +98,25 @@ public class ProfessionalPage extends JFrame {
         gbc.anchor = GridBagConstraints.NORTHWEST;
 
 
-        customFontSize(personalInfo);
-        customFontSize(genderLbl);
-        customFontSize(ageLbl);
-        customFontSize(weightLbl);
-        customFontSize(heightLbl);
-        customFontSize(goalsLbl);
-        customFontSize(activityLbl);
-        customFontSize(stressLbl);
-
-
-        genderBox.setRenderer(new ComboBoxFontSize());
-        goalsBox.setRenderer(new ComboBoxFontSize());
-        activityBoxPro.setRenderer(new ComboBoxFontSize());
-        stressBox.setRenderer(new ComboBoxFontSize());
-
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.PAGE_START;
-        mainPanel.add(personalInfo, gbc);
+        mainPanel.add(Common.getPersonalLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        mainPanel.add(genderLbl, gbc);
+        mainPanel.add(Common.getGenderLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
 
-        mainPanel.add(genderBox, gbc);
+        mainPanel.add(Common.getGenders(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        mainPanel.add(ageLbl, gbc);
+        mainPanel.add(Common.getAgeLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -185,7 +124,7 @@ public class ProfessionalPage extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 5;
-        mainPanel.add(weightLbl, gbc);
+        mainPanel.add(Common.getWeightLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 6;
@@ -196,7 +135,7 @@ public class ProfessionalPage extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 7;
-        mainPanel.add(heightLbl, gbc);
+        mainPanel.add(Common.getHeightLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 8;
@@ -204,30 +143,30 @@ public class ProfessionalPage extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 9;
-        mainPanel.add(goalsLbl, gbc);
+        mainPanel.add(Common.getGoalsLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 10;
-        mainPanel.add(goalsBox, gbc);
+        mainPanel.add(Common.getGoalsBox(), gbc);
 
 
         heightTxt.setColumns(5);
 
         gbc.gridx = 0;
         gbc.gridy = 11;
-        mainPanel.add(activityLbl, gbc);
+        mainPanel.add(Common.getActivityLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 12;
-        mainPanel.add(activityBoxPro, gbc);
+        mainPanel.add(Common.getActivityBoxPro(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 13;
-        mainPanel.add(stressLbl, gbc);
+        mainPanel.add(Common.getStressLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 14;
-        mainPanel.add(stressBox, gbc);
+        mainPanel.add(Common.getStressLevelBox(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 15;
@@ -236,8 +175,8 @@ public class ProfessionalPage extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 16;
         gbc.fill = GridBagConstraints.LAST_LINE_START;
-        mainPanel.add(submit, gbc);
-        submit.addActionListener(new Listen());
+        mainPanel.add(Common.getSubmit(), gbc);
+        Common.getSubmit().addActionListener(new Listen());
 
         gbc.gridx = 0;
         gbc.gridy = 17;
@@ -276,7 +215,7 @@ public class ProfessionalPage extends JFrame {
      * multiple save dialog pop ups
      */
     private void addSaveListener() {
-        save.addActionListener(new Listen());
+        Common.getSave().addActionListener(new Listen());
     }
 
 
@@ -296,13 +235,13 @@ public class ProfessionalPage extends JFrame {
         sidePanel.setVisible(true);
         centerPanel.setVisible(true);
 
-        customFontSize(resultsLbl);
+        customFontSize(Common.getResultsLbl());
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.PAGE_START;
-        sidePanel.add(resultsLbl, gbc);
+        sidePanel.add(Common.getResultsLbl(), gbc);
 
         JLabel goalTypeLbl = new JLabel("     Patient's goal is to: " + goalType);
         customFontSize(goalTypeLbl);
@@ -360,7 +299,7 @@ public class ProfessionalPage extends JFrame {
         gbc.gridy = 10;
         gbc.gridwidth = 0;
         gbc.fill = GridBagConstraints.CENTER;
-        sidePanel.add(save, gbc);
+        sidePanel.add(Common.getSave(), gbc);
 
 
 
@@ -385,23 +324,8 @@ public class ProfessionalPage extends JFrame {
      * @return the string
      */
     protected static ArrayList<String> getResults() {
+        return Common.getResults(REE, BMI, TEE, goal, protein, fats, carbs);
 
-        ArrayList<String> list = new ArrayList<>();
-
-
-       list.add("Patient's REE is:         " + String.format("%.1f", REE) + "\n");
-       list.add("Patient's BMI is:         " + String.format("%.1f", BMI) + "\n");
-       list.add("Patient's TEE is:         " + String.format("%.1f", TEE) + "\n");
-       list.add("Calories needed :         " + String.format("%.1f", goal)+ "\n\n");
-       list.add(protein + "\n");
-       list.add(fats + "\n");
-       list.add( carbs + "\n" + "\n" + "\n");
-       list.add("*Please remember that these figures are not set in stone, and before making any\n");
-       list.add("major changes to patient's diet, you should consult a dietitian or physician first");
-       list.add("\n\n------------------------------------------\n");
-       list.add(java.time.LocalDate.now() + "");
-
-       return list;
     }
 
     /**
@@ -431,14 +355,14 @@ public class ProfessionalPage extends JFrame {
     class Listen implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == submit && weightTxt.getText().equals("") || heightTxt.getText().equals("") || ageBox.getText().equals("")) {
+            if (e.getSource() == Common.getSubmit() && weightTxt.getText().equals("") || heightTxt.getText().equals("") || ageBox.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please enter the missing information.");
             } else if (!weightTxt.getText().matches("^[0-9]+$") ||  !heightTxt.getText().matches("^[0-9]+$") ||  !ageBox.getText().matches("^[0-9]+$")) {
                 JOptionPane.showMessageDialog(null, "Please enter the numeric values only for height, weight and age.");
-            } else if (e.getSource() == submit) {
-                user = new Person(name, (Double.parseDouble(weightTxt.getText()) / 2.2), Double.parseDouble(heightTxt.getText()), Objects.requireNonNull(activityBoxPro.getSelectedItem()).toString(), Objects.requireNonNull(genderBox.getSelectedItem()).toString(), Integer.parseInt(ageBox.getText()), Objects.requireNonNull(goalsBox.getSelectedItem()).toString(), Objects.requireNonNull(stressBox.getSelectedItem()).toString());
-                DataCalculations.setPALPro(activityBoxPro.getSelectedItem().toString());
-                DataCalculations.setSF(true, stressBox.getSelectedItem().toString());
+            } else if (e.getSource() == Common.getSubmit()) {
+                user = new Person(name, (Double.parseDouble(weightTxt.getText()) / 2.2), Double.parseDouble(heightTxt.getText()), Objects.requireNonNull(Common.getActivityBoxPro().getSelectedItem()).toString(), Objects.requireNonNull(Common.getGenders().getSelectedItem()).toString(), Integer.parseInt(ageBox.getText()), Objects.requireNonNull(Common.getGoalsBox().getSelectedItem()).toString(), Objects.requireNonNull(Common.getStressLevelBox().getSelectedItem()).toString());
+                DataCalculations.setPALPro(Common.getActivityBoxPro().getSelectedItem().toString());
+                DataCalculations.setSF(true, Common.getStressLevelBox().getSelectedItem().toString());
                 DataCalculations.setVals(user);
                 DataCalculations.setGoal(user);
                 BMI = DataCalculations.getBMI();
@@ -452,11 +376,11 @@ public class ProfessionalPage extends JFrame {
 
 
                 sidePanel.removeAll();
-                fillSidePanel(goalsBox.getSelectedItem().toString());
+                fillSidePanel(Common.getGoalsBox().getSelectedItem().toString());
                 revalidate();
 
 
-            } else if (e.getSource() == save) {
+            } else if (e.getSource() == Common.getSave()) {
                 SaveData.writeData(user.getName(), "Pro");
             }
 

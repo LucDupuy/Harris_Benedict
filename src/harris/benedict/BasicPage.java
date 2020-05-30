@@ -13,52 +13,8 @@ import java.util.Objects;
  */
 public class BasicPage extends JFrame {
 
-
-    /**
-     * Holds the name of the person
-     */
     private static String name = "";
-
-    /**
-     * Person object to store information
-     */
     private Person user;
-
-    /**
-     * Arrays containing choices
-     */
-    private static final String[] genders = {"Male", "Female"};
-    private static final String[] activitiesBasic = {"Light", "Moderate", "Vigorous"};
-    private static final String[] weightGoals = {"Lose Weight (0.5 lbs)", "Lose Weight (1.0 lbs)", "Lose Weight (1.5 lbs)", "Lose Weight (2.0 lbs)", "Maintain Weight", "Gain Weight (0.5 lbs)", "Gain Weight (1.0 lbs)", "Gain Weight (1.5 lbs)", "Gain Weight (2.0 lbs)"};
-
-    /**
-     * Boxes visualising those choices
-     */
-    private static final JComboBox<String> genderBox = new JComboBox<>(genders);
-    private static final JComboBox<String> activityBoxBasic = new JComboBox<>(activitiesBasic);
-    private static final JComboBox<String> goalsBox = new JComboBox<>(weightGoals);
-
-
-    /**
-     * Button used to submit the information
-     */
-    private static final JButton submit = new JButton("SUBMIT");
-    private static final JButton save = new JButton("SAVE");
-    //private static final JButton home = new JButton("  HOME ");
-
-    /**
-     * Labels to explain each part of the page
-     */
-    private static final JLabel nameLbl = new JLabel("Please enter Your name: ");
-    private static final JLabel genderLbl = new JLabel("       Please select Your sex             ");
-    private static final JLabel weightLbl = new JLabel("\n     Please enter weight in pounds        ");
-    private static final JLabel heightLbl = new JLabel("\n     Please enter height in centimetres ");
-    private static final JLabel activityLbl = new JLabel("\n     Please select Your level of typical daily activity");
-    private static final JLabel ageLbl = new JLabel("\n     Please enter Your age                        ");
-    private static final JLabel goalsLbl = new JLabel("\n     Please select Your goal (in a week)");
-
-    JLabel personalInfo = new JLabel("<HTML><U>PERSONAL INFORMATION</U></HTML>", SwingConstants.CENTER);
-    JLabel resultsLbl = new JLabel("<HTML><U>RESULTS</U></HTML>", SwingConstants.CENTER);
 
     /**
      * Text fields to input info
@@ -97,7 +53,7 @@ public class BasicPage extends JFrame {
         setSize(900, 600);
         add(createMainPanel(), BorderLayout.LINE_START);
         add(createSidePanel(), BorderLayout.EAST);
-        getRootPane().setDefaultButton(submit);
+        getRootPane().setDefaultButton(Common.getSubmit());
     }
 
     /**
@@ -108,7 +64,7 @@ public class BasicPage extends JFrame {
         String[] buttons = {"Create Profile", "Leave Name Blank"};
 
         JPanel panel = new JPanel();
-        panel.add(nameLbl);
+        panel.add(Common.getNameLbl());
         panel.add(nameTxt);
 
         int result = JOptionPane.showOptionDialog(null, panel, "Create Profile", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, buttons, null);
@@ -142,39 +98,26 @@ public class BasicPage extends JFrame {
         gbc.anchor = GridBagConstraints.NORTHWEST;
 
 
-        customFontSize(personalInfo);
-        customFontSize(genderLbl);
-        customFontSize(ageLbl);
-        customFontSize(weightLbl);
-        customFontSize(heightLbl);
-        customFontSize(goalsLbl);
-        customFontSize(activityLbl);
-
-
-        genderBox.setRenderer(new ComboBoxFontSize());
-        goalsBox.setRenderer(new ComboBoxFontSize());
-        activityBoxBasic.setRenderer(new ComboBoxFontSize());
-
 
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.PAGE_START;
-        mainPanel.add(personalInfo, gbc);
+        mainPanel.add(Common.getPersonalLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        mainPanel.add(genderLbl, gbc);
+        mainPanel.add(Common.getGenderLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
 
-        mainPanel.add(genderBox, gbc);
+        mainPanel.add(Common.getGenders(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        mainPanel.add(ageLbl, gbc);
+        mainPanel.add(Common.getAgeLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -182,7 +125,7 @@ public class BasicPage extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 5;
-        mainPanel.add(weightLbl, gbc);
+        mainPanel.add(Common.getWeightLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 6;
@@ -193,7 +136,7 @@ public class BasicPage extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 7;
-        mainPanel.add(heightLbl, gbc);
+        mainPanel.add(Common.getHeightLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 8;
@@ -201,22 +144,22 @@ public class BasicPage extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 9;
-        mainPanel.add(goalsLbl, gbc);
+        mainPanel.add(Common.getGoalsLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 10;
-        mainPanel.add(goalsBox, gbc);
+        mainPanel.add(Common.getGoalsBox(), gbc);
 
 
         heightTxt.setColumns(5);
 
         gbc.gridx = 0;
         gbc.gridy = 11;
-        mainPanel.add(activityLbl, gbc);
+        mainPanel.add(Common.getActivityLbl(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 12;
-        mainPanel.add(activityBoxBasic, gbc);
+        mainPanel.add(Common.getActivityBoxBasic(), gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 13;
@@ -228,8 +171,8 @@ public class BasicPage extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 15;
         gbc.fill = GridBagConstraints.LAST_LINE_START;
-        mainPanel.add(submit, gbc);
-        submit.addActionListener(new Listen());
+        mainPanel.add(Common.getSubmit(), gbc);
+        Common.getSubmit().addActionListener(new Listen());
 
         gbc.gridx = 0;
         gbc.gridy = 16;
@@ -268,7 +211,7 @@ public class BasicPage extends JFrame {
      * multiple save dialog pop ups
      */
     private void addSaveListener() {
-        save.addActionListener(new Listen());
+        Common.getSave().addActionListener(new Listen());
     }
 
 
@@ -288,58 +231,57 @@ public class BasicPage extends JFrame {
         sidePanel.setVisible(true);
         centerPanel.setVisible(true);
 
-        customFontSize(resultsLbl);
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.PAGE_START;
-        sidePanel.add(resultsLbl, gbc);
+        sidePanel.add(Common.getResultsLbl(), gbc);
 
         JLabel goalTypeLbl = new JLabel("    Your goal is to: " + goalType);
-        customFontSize(goalTypeLbl);
+        Common.customFontSize(goalTypeLbl);
         gbc.gridx = 0;
         gbc.gridy = 1;
         sidePanel.add(goalTypeLbl, gbc);
 
         JLabel REELbl = new JLabel("     Your *REE is: " + String.format("%.1f", REE) + " calories\n");
-        customFontSize(REELbl);
+        Common.customFontSize(REELbl);
         gbc.gridx = 0;
         gbc.gridy = 2;
         sidePanel.add(REELbl, gbc);
 
         JLabel TEELbl = new JLabel("     Your *TEE is: " + String.format("%.1f", TEE) + " calories\n");
-        customFontSize(TEELbl);
+        Common.customFontSize(TEELbl);
         gbc.gridx = 0;
         gbc.gridy = 3;
         sidePanel.add(TEELbl, gbc);
 
         JLabel BMILbl = new JLabel("\n     Your *BMI is: " + String.format("%.1f", BMI));
-        customFontSize(BMILbl);
+        Common.customFontSize(BMILbl);
         gbc.gridx = 0;
         gbc.gridy = 4;
         sidePanel.add(BMILbl, gbc);
 
         JLabel caloriesNeeded = new JLabel("     You need to consume " + String.format("%.1f", goal) + " calories a day.");
-        customFontSize(caloriesNeeded);
+        Common.customFontSize(caloriesNeeded);
         gbc.gridx = 0;
         gbc.gridy = 5;
         sidePanel.add(caloriesNeeded, gbc);
 
         JLabel proteinLbl = new JLabel("     " + protein);
-        customFontSize(proteinLbl);
+        Common.customFontSize(proteinLbl);
         gbc.gridx = 0;
         gbc.gridy = 6;
         sidePanel.add(proteinLbl, gbc);
 
         JLabel fatsLbl = new JLabel("     " + fats);
-        customFontSize(fatsLbl);
+        Common.customFontSize(fatsLbl);
         gbc.gridx = 0;
         gbc.gridy = 7;
         sidePanel.add(fatsLbl, gbc);
 
         JLabel carbsLbl = new JLabel("     " + carbs);
-        customFontSize(carbsLbl);
+        Common.customFontSize(carbsLbl);
         gbc.gridx = 0;
         gbc.gridy = 8;
         sidePanel.add(carbsLbl, gbc);
@@ -352,11 +294,11 @@ public class BasicPage extends JFrame {
         gbc.gridy = 10;
         gbc.gridwidth = 0;
         gbc.fill = GridBagConstraints.CENTER;
-        sidePanel.add(save, gbc);
+        sidePanel.add(Common.getSave(), gbc);
 
 
         JLabel definitionLbl = new JLabel("*Please click REE, TEE, or BMI for a definition");
-        customFontSize(definitionLbl);
+        Common.customFontSize(definitionLbl);
         gbc.gridx = 0;
         gbc.gridy = 11;
         gbc.fill = GridBagConstraints.WEST;
@@ -376,23 +318,8 @@ public class BasicPage extends JFrame {
      * @return the string
      */
     protected static ArrayList<String> getResults() {
+        return Common.getResults(REE, BMI, TEE, goal, protein, fats, carbs);
 
-        ArrayList<String> list = new ArrayList<>();
-
-
-        list.add("Your REE is:         " + String.format("%.1f", REE) + "\n");
-        list.add("Your BMI is:         " + String.format("%.1f", BMI) + "\n");
-        list.add("Your TEE is:         " + String.format("%.1f", TEE) + "\n");
-        list.add("Calories needed :         " + String.format("%.1f", goal) + "\n\n");
-        list.add(protein + "\n");
-        list.add(fats + "\n");
-        list.add(carbs + "\n" + "\n" + "\n");
-        list.add("*Please remember that these figures are not set in stone, and before making any\n");
-        list.add("major changes to Your diet, you should consult a dietitian or physician first");
-        list.add("\n\n------------------------------------------\n");
-        list.add(java.time.LocalDate.now() + "");
-
-        return list;
     }
 
     /**
@@ -408,12 +335,6 @@ public class BasicPage extends JFrame {
 
     }
 
-    /**
-     * Change the font of the given label
-     */
-    private static void customFontSize(JLabel lbl) {
-        lbl.setFont(lbl.getFont().deriveFont(16.0f));
-    }
 
 
     /**
@@ -422,12 +343,12 @@ public class BasicPage extends JFrame {
     class Listen implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == submit && weightTxt.getText().equals("") || heightTxt.getText().equals("") || ageBox.getText().equals("")) {
+            if (e.getSource() == Common.getSubmit() && weightTxt.getText().equals("") || heightTxt.getText().equals("") || ageBox.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please enter the missing information.");
             } else if (!weightTxt.getText().matches("^[0-9]+$") || !heightTxt.getText().matches("^[0-9]+$") || !ageBox.getText().matches("^[0-9]+$")) {
                 JOptionPane.showMessageDialog(null, "Please enter the numeric values only for height, weight and age.");
-            } else if (e.getSource() == submit) {
-                user = new Person(name, (Double.parseDouble(weightTxt.getText()) / 2.2), Double.parseDouble(heightTxt.getText()), Objects.requireNonNull(activityBoxBasic.getSelectedItem()).toString(), Objects.requireNonNull(genderBox.getSelectedItem()).toString(), Integer.parseInt(ageBox.getText()), Objects.requireNonNull(goalsBox.getSelectedItem()).toString());
+            } else if (e.getSource() == Common.getSubmit()) {
+                user = new Person(name, (Double.parseDouble(weightTxt.getText()) / 2.2), Double.parseDouble(heightTxt.getText()), Objects.requireNonNull(Common.getActivityBoxBasic().getSelectedItem()).toString(), Objects.requireNonNull(Common.getGenders().getSelectedItem()).toString(), Integer.parseInt(ageBox.getText()), Objects.requireNonNull(Common.getGoalsBox().getSelectedItem()).toString());
                 DataCalculations.setPALBasic(user);
                 DataCalculations.setSF(false, "");
                 DataCalculations.setVals(user);
@@ -442,32 +363,17 @@ public class BasicPage extends JFrame {
                 carbs = DataCalculations.carbsToString();
 
                 sidePanel.removeAll();
-                fillSidePanel(goalsBox.getSelectedItem().toString());
+                fillSidePanel(Common.getGoalsBox().getSelectedItem().toString());
                 revalidate();
 
 
-            } else if (e.getSource() == save) {
+            } else if (e.getSource() == Common.getSave()) {
                 SaveData.writeData(user.getName(), "Basic");
             }
         }
     }
 
 
-    /*********************************************************************************************
-     * Title: Set text sie of JComboBox in Swing
-     * Author: Thompson, A
-     * Date: September 9 2013
-     * Availability: https://stackoverflow.com/questions/18704022/set-text-size-of-jcombobox-in-swing
-     *********************************************************************************************/
-    static class ComboBoxFontSize extends DefaultListCellRenderer {
-        public Component getListCellRendererComponent(JList list, Object obj, int i, boolean isSelected, boolean bool2) {
-
-            JLabel lbl = (JLabel) super.getListCellRendererComponent(list, obj, i, isSelected, bool2);
-            Font font = new Font((String) obj, Font.BOLD, 16);
-            lbl.setFont(font);
-            return lbl;
-        }
-    }
 
 
     /**
