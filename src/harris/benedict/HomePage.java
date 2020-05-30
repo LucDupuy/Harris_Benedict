@@ -121,7 +121,7 @@ public class HomePage extends JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "This program is meant to be a guide to help you in your weight loss or weight gain journey. You will be able to save your profile\n" +
                                                                           "into a text file." +
-                                                                          "\n\nSpecial thanks to Nicole for her professional opinions and hard work." +
+                                                                          "\n\nSpecial thanks to Nicole Steadman, MAN, RD for her professional opinions and hard work." +
                                                                           "\n\nThis program is meant to be a guide, please consult a dietitian or physician before making any changes to your diet" +
                                                                           "\n\nAll values and equations are taken from the Harris-Benedict equation (Harris & Benedict 1918)");
             }

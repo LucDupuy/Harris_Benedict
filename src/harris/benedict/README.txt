@@ -11,7 +11,7 @@ Enjoy!                                                                          
 ******************************************************************************************************************************************
 
 
-Speical thanks to Nicole for all her help and professional opinions.
+Speical thanks to Nicole Steadman, MAN, RD for all her help and professional opinions.
 
 Copyright Dupuy Productions 2020.
 
