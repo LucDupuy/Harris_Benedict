@@ -130,12 +130,11 @@ public class Common {
         return save;
     }
 
-    protected static JPanel getSidePanel(JPanel sidePanel){
+    protected static void getSidePanel(JPanel sidePanel){
         sidePanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(4.0f)));
         sidePanel.setPreferredSize(new Dimension(450, 5));
         sidePanel.setVisible(false);
         sidePanel.setBackground( Color.decode("#d7d5d5"));
-        return sidePanel;
     }
 
     /**
