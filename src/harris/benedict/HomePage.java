@@ -41,7 +41,7 @@ public class HomePage extends JFrame {
         JPanel panel = new JPanel();
         setLayout(new BorderLayout());
 
-        JLabel label = new JLabel("Harris Benedict Tool");
+        JLabel label = new JLabel("Luc's Nutrition Tool");
         label.setFont(new Font(Font.SERIF, 1, 40));
 
         panel.add(label);
@@ -59,17 +59,17 @@ public class HomePage extends JFrame {
     private JPanel createButtonPanel() {
         JPanel panel = new JPanel();
         newButtonBasic.setPreferredSize(new Dimension(200, 50));
-        newButtonBasic.setFont(new Font("Airal", 1, 15));
+        newButtonBasic.setFont(new Font("Arial", 1, 15));
         panel.add(newButtonBasic);
         newButtonBasic.addActionListener(new Listen());
 
         newButtonPro.setPreferredSize(new Dimension(200, 50));
-        newButtonPro.setFont(new Font("Airal", 1, 15));
+        newButtonPro.setFont(new Font("Arial", 1, 15));
         panel.add(newButtonPro);
         newButtonPro.addActionListener(new Listen());
 
         readMe.setPreferredSize(new Dimension(200, 50));
-        readMe.setFont(new Font("Airal", 1, 15));
+        readMe.setFont(new Font("Arial", 1, 15));
         panel.add(readMe);
         readMe.addActionListener(new Listen());
 

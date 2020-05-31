@@ -59,6 +59,7 @@ public class BasicPage extends JFrame {
     /**
      * This method sets the name of the user
      */
+    @SuppressWarnings("DuplicatedCode")
     protected static void setUserName() {
 
         String[] buttons = {"Create Profile", "Leave Name Blank"};

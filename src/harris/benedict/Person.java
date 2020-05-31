@@ -101,21 +101,4 @@ public class Person {
         return this.age;
     }
 
-    /**
-     * Provides a string representation of the user's information
-     *
-     * @return the string
-     */
-    @Override
-    public String toString() {
-
-        String name = this.name;
-        String weight = "" + this.weight;
-        String height = "" + this.height;
-        String activity = this.activity;
-        String gender = this.gender;
-        String age = "" + this.age;
-
-        return name + ", Weight: " + weight + ", Height " + height + ", Activity Level: " + activity + ", Gender: " + gender + ", Age: " + age + "Goal: " + goal;
-    }
 }

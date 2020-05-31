@@ -32,10 +32,6 @@ public class DataCalculations {
     static double SF;
     static double TEE;
 
-
-
-
-
     /**
      * Setting the factor of activity for the user (BASIC)
      *
@@ -91,7 +87,6 @@ public class DataCalculations {
 
         while (!correct) {
             try {
-
                 SF = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter a value for patient's stress factor: " + stress, "1.0"));
                 correct = true;
             } catch (NumberFormatException e) {
@@ -192,68 +187,30 @@ public class DataCalculations {
         fats = (min_fats + max_fats) / 2;
     }
 
-
-    /**
-     * This method creates a string representation of the protein needed
-     *
-     * @return the string
-     */
     protected static String proteinToString() {
         return "Protein Needed: " + String.format("%.1f", protein) + " grams";
     }
 
-    /**
-     * This method creates a string representation of the fats needed
-     *
-     * @return the string
-     */
     protected static String fatsToString() {
         return "Fats Needed: " + String.format("%.1f", fats) + " grams";
     }
 
-    /**
-     * This method creates a string representation of the carbs needed
-     *
-     * @return the string
-     */
     protected static String carbsToString() {
         return "Carbs Needed: " + String.format("%.1f", carbs) + " grams";
     }
 
-    /**
-     * Getter method for the user's BMI
-     *
-     * @return the user's BMI
-     */
     protected static double getBMI() {
         return BMI;
     }
 
-    /**
-     * Getter method for the user's REE
-     *
-     * @return the user's REE
-     */
     protected static double getREE() {
         return REE;
     }
 
-
-    /**
-     * Getter method for the user's TEE
-     *
-     * @return the user's TEE
-     */
     protected static double getTEE() {
         return TEE;
     }
 
-
-    /**
-     * Getter for weight goal
-     *
-     * @return the goal in calories
-     */
     protected static double getGoal() {
         return goalCalories;
     }

@@ -96,29 +96,23 @@ public class Common {
        return lbl;
     }
 
-
     protected static JComboBox<String>getGenders() {
-        genderBox.setRenderer(new ComboBoxFontSize());
         return genderBox;
     }
 
     protected static JComboBox<String>getActivityBoxBasic() {
-        activityBoxBasic.setRenderer(new ComboBoxFontSize());
         return activityBoxBasic;
     }
 
     protected static JComboBox<String>getGoalsBox() {
-        goalsBox.setRenderer(new ComboBoxFontSize());
         return goalsBox;
     }
 
     protected static JComboBox<String>getActivityBoxPro() {
-        activityBoxPRO.setRenderer(new ComboBoxFontSize());
         return activityBoxPRO;
     }
 
     protected static JComboBox<String>getStressLevelBox(){
-        stressLevelBox.setRenderer(new ComboBoxFontSize());
         return stressLevelBox;
     }
 
@@ -130,6 +124,10 @@ public class Common {
         return save;
     }
 
+    /**
+     * Sets the information for the side panel
+     * @param sidePanel the side panel
+     */
     protected static void getSidePanel(JPanel sidePanel){
         sidePanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(4.0f)));
         sidePanel.setPreferredSize(new Dimension(450, 5));
@@ -150,6 +148,17 @@ public class Common {
 
     }
 
+    /**
+     * Returns a list containing all of the results in string form
+     * @param REE the user's REE
+     * @param BMI the user's BMI
+     * @param TEE the user's TEE
+     * @param goal the user's goal calories
+     * @param protein the user's goal protein
+     * @param fats the user's goal fats
+     * @param carbs the user's goal carbs
+     * @return the list containing the results
+     */
     protected static ArrayList<String> getResults(double REE, double BMI, double TEE, double goal, String protein, String fats, String carbs) {
 
         ArrayList<String> list = new ArrayList<>();
@@ -168,23 +177,6 @@ public class Common {
         list.add(java.time.LocalDate.now() + "");
 
         return list;
-    }
-
-
-    /*********************************************************************************************
-     * Title: Set text size of JComboBox in Swing
-     * Author: Thompson, A
-     * Date: September 9 2013
-     * Availability: https://stackoverflow.com/questions/18704022/set-text-size-of-jcombobox-in-swing
-     *********************************************************************************************/
-    static class ComboBoxFontSize extends DefaultListCellRenderer {
-        public Component getListCellRendererComponent(JList list, Object obj, int i, boolean isSelected, boolean bool2) {
-
-            JLabel lbl = (JLabel) super.getListCellRendererComponent(list, obj, i, isSelected, bool2);
-            Font font = new Font((String) obj, Font.BOLD, 16);
-            lbl.setFont(font);
-            return lbl;
-        }
     }
 
     /**

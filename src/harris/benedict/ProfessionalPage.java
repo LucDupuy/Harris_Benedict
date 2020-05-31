@@ -1,6 +1,5 @@
 package harris.benedict;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -21,8 +20,8 @@ public class ProfessionalPage extends JFrame {
      */
     private static final JTextField weightTxt = new JTextField("0");
     private static final JTextField heightTxt = new JTextField("0");
-    private static final JTextField nameTxt   = new JTextField(10);
-    private static final JTextField ageBox    = new JTextField("0");
+    private static final JTextField nameTxt = new JTextField(10);
+    private static final JTextField ageBox = new JTextField("0");
 
     /**
      * Variables to hold the values of the user's PAL, BMI and REE
@@ -67,8 +66,8 @@ public class ProfessionalPage extends JFrame {
         panel.add(Common.getNameLbl());
         panel.add(nameTxt);
 
-        int result = JOptionPane.showOptionDialog(null, panel, "Create Profile", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,null, buttons, null);
-        if (result == JOptionPane.YES_OPTION && nameTxt.getText().equals("")){
+        int result = JOptionPane.showOptionDialog(null, panel, "Create Profile", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, buttons, null);
+        if (result == JOptionPane.YES_OPTION && nameTxt.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please enter the missing information.");
             setUserName();
         } else if (result == JOptionPane.YES_OPTION) {
@@ -89,7 +88,6 @@ public class ProfessionalPage extends JFrame {
      * @return the panel that gets added to the frame
      */
     private JPanel createMainPanel() {
-
 
         GridBagConstraints gbc = new GridBagConstraints();
         mainPanel.setLayout(new GridBagLayout());
@@ -159,12 +157,9 @@ public class ProfessionalPage extends JFrame {
 
         gbc.gridy = 17;
 
-       // mainPanel.add(home, gbc);
-       // home.addActionListener(new Listen());
-
         mainPanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(4.0f)));
         mainPanel.setPreferredSize(new Dimension(450, 5));
-        mainPanel.setBackground( Color.decode("#d7d5d5"));
+        mainPanel.setBackground(Color.decode("#d7d5d5"));
 
         return mainPanel;
     }
@@ -198,11 +193,11 @@ public class ProfessionalPage extends JFrame {
 
     private void fillSidePanel(String goalType) {
 
-    GridBagConstraints gbc = new GridBagConstraints();
-    sidePanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        sidePanel.setLayout(new GridBagLayout());
 
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
 
         sidePanel.setVisible(true);
         centerPanel.setVisible(true);
@@ -274,7 +269,6 @@ public class ProfessionalPage extends JFrame {
         sidePanel.add(Common.getSave(), gbc);
 
 
-
         JLabel definitionLbl = new JLabel("*Please click REE, TEE, or BMI for a definition");
         customFontSize(definitionLbl);
         gbc.gridx = 0;
@@ -300,12 +294,12 @@ public class ProfessionalPage extends JFrame {
 
     }
 
-     /**
+    /**
      * Change the font of the given label
      */
-        private static void customFontSize(JLabel lbl){
-            lbl.setFont(lbl.getFont().deriveFont(16.0f));
-        }
+    private static void customFontSize(JLabel lbl) {
+        lbl.setFont(lbl.getFont().deriveFont(16.0f));
+    }
 
 
     /**
@@ -314,7 +308,7 @@ public class ProfessionalPage extends JFrame {
     class Listen implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!weightTxt.getText().matches("^[0-9]+$") ||  !heightTxt.getText().matches("^[0-9]+$") ||  !ageBox.getText().matches("^[0-9]+$")) {
+            if (!weightTxt.getText().matches("^[0-9]+$") || !heightTxt.getText().matches("^[0-9]+$") || !ageBox.getText().matches("^[0-9]+$")) {
                 JOptionPane.showMessageDialog(null, "Please enter the numeric values only for height, weight and age.");
             } else if (e.getSource() == Common.getSubmit()) {
                 user = new Person(name, (Double.parseDouble(weightTxt.getText()) / WEIGHTCONVERSION), Double.parseDouble(heightTxt.getText()), Objects.requireNonNull(Common.getActivityBoxPro().getSelectedItem()).toString(), Objects.requireNonNull(Common.getGenders().getSelectedItem()).toString(), Integer.parseInt(ageBox.getText()), Objects.requireNonNull(Common.getGoalsBox().getSelectedItem()).toString(), Objects.requireNonNull(Common.getStressLevelBox().getSelectedItem()).toString());
@@ -328,20 +322,17 @@ public class ProfessionalPage extends JFrame {
                 goal = DataCalculations.getGoal();
                 DataCalculations.settingMacros(user);
                 protein = DataCalculations.proteinToString();
-                fats    = DataCalculations.fatsToString();
-                carbs   = DataCalculations.carbsToString() ;
-
+                fats = DataCalculations.fatsToString();
+                carbs = DataCalculations.carbsToString();
                 sidePanel.removeAll();
                 fillSidePanel(Common.getGoalsBox().getSelectedItem().toString());
                 revalidate();
 
-
             } else if (e.getSource() == Common.getSave()) {
                 SaveData.writeData(user.getName(), "Pro");
             }
-
-            }
         }
+    }
 
     /**
      * Opens the main page of the application
